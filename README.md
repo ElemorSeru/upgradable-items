@@ -6,7 +6,7 @@ My players regularly asked about upgrading their existing items, crafting new it
 
 ## Framework
 Based on the item type (currently only supporting weapons and armor), the item will include 4 new slots within the Details tab. 
-<img width="500" height="1018" alt="image" src="https://github.com/images/itemSlotView.png" />
+<img width="500" height="1018" alt="image" src="https://github.com/ElemorSeru/upgradable-items/blob/main/images/itemSlotView.png" />
 These indicate "Tiers" of updates. Consider them like slotting runes or magical items into the item. The Enhancment Level and Clusters work in conjunction, however not all Clusters use the Enhancment level (described below).
 
 ## Current Mechanics
