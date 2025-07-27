@@ -1,0 +1,83 @@
+{
+  "id": "upgradable-items",
+  "title": "Upgradable Item Slots",
+  "version": "1.0.0",
+  "esmodules": [
+    "scripts/upgradable-main.js"    
+  ],
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "description": "This module is an attempt at streamlining the item upgrade process for your players and the DM. What this offers is a way to take an item, modify \"slots\" and give items perks and features rather than always having to create and item and manually adjust things. Imagine dwarven runes being slotted into items and those runes giving perks, boons, and banes accordingly.",
+  "authors": [
+    {
+      "name": "Elemor",
+      "discord": "elemorseru",
+      "flags": {}
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    },
+    {
+      "lang": "es",
+      "name": "Spanish",
+      "path": "lang/es.json",
+      "flags": {}
+    },
+    {
+      "lang": "hy",
+      "name": "Armenian",
+      "path": "lang/hy.json",
+      "flags": {}
+    },
+    {
+      "lang": "zh",
+      "name": "Chinese (Simplified)",
+      "path": "lang/zh.json",
+      "flags": {}
+    },
+    {
+      "lang": "ja",
+      "name": "Japanese",
+      "path": "lang/ja.json",
+      "flags": {}
+    },
+    {
+      "lang": "fr",
+      "name": "French",
+      "path": "lang/fr.json",
+      "flags": {}
+    },
+    {
+      "lang": "ru",
+      "name": "Russian",
+      "path": "lang/ru.json",
+      "flags": {}
+    }
+  ],
+  "styles": [
+    "styles/upgradable-styles.css"
+  ],
+  "url": "https://github.com/ElemorSeru/upgradable-items",
+  "manifest": "https://github.com/ElemorSeru/upgradable-items/releases/latest/download/module.json",
+  "download": "https://github.com/ElemorSeru/upgradable-items/releases/latest/download/module.zip",
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "4.3.0",
+          "maximum": "4.999",
+          "verified": "4.3.9"
+        }
+      }
+    ]
+  }
+}

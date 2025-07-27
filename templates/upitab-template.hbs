@@ -1,0 +1,84 @@
+<fieldset class="upitab-extension">
+    <legend>{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunes.Label"}}</legend>
+
+    <div class="form-group">
+        <label class="tooltip-container">
+            {{localize "upgradable-items.SOLVARIS.Labels.RuneTier1.Label"}}
+            <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.RuneTier1.Hint"}}</span>
+        </label>
+
+        <select style="margin:5px; min-width:100px"
+                data-property="enhanceLvl"
+                id="{{fieldIdPrefix}}rune-enhanceLvl"
+                data-dtype="String">
+            {{#each enhanceLvls}}
+            <option value="{{this.id}}"
+                    {{#ifEquals this.id ../selectedRunes.enhanceLvl}} selected{{/ifEquals}}>
+                {{this.label}}
+            </option>
+            {{/each}}
+        </select>
+    </div>
+    <legend style="margin-top:5px; text-align:center">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier1.Label"}}</legend>
+    <div class="form-group">
+        <label class="tooltip-container">
+            {{localize "upgradable-items.SOLVARIS.Labels.EnvironmentalClustersLabel"}}
+            <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier1.Hint"}}</span>
+        </label>
+
+        <select style="margin:5px; min-width:100px"
+                data-property="cluster1"
+                id="{{fieldIdPrefix}}rune-cluster1"
+                data-dtype="String">
+            {{#each runeClusters}}
+            <option value="{{this.id}}"
+                    {{#ifEquals this.id ../selectedRunes.cluster1}} selected{{/ifEquals}}>
+                {{this.label}}
+            </option>
+            {{/each}}
+        </select>
+
+    </div>
+
+    <legend style="margin-top:5px; text-align:center">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier2.Label"}}</legend>
+    <div class="form-group">
+        <label class="tooltip-container">
+            {{localize "upgradable-items.SOLVARIS.Labels.EnvironmentalClustersLabel"}}
+            <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier2.Hint"}}</span>
+        </label>
+
+        <select style="margin:5px; min-width:100px"
+                data-property="cluster2"
+                id="{{fieldIdPrefix}}rune-cluster2"
+                data-dtype="String">
+            {{#each runeClusters}}
+            <option value="{{this.id}}"
+                    {{#ifEquals this.id ../selectedRunes.cluster2}} selected{{/ifEquals}}>
+                {{this.label}}
+            </option>
+            {{/each}}
+        </select>
+
+    </div>
+
+    <legend style="margin-top:5px; text-align:center">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier3.Label"}}</legend>
+    <div class="form-group">
+        <label class="tooltip-container">
+            {{localize "upgradable-items.SOLVARIS.Labels.EnvironmentalClustersLabel"}}
+            <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier3.Hint"}}</span>
+        </label>
+
+        <select style="margin:5px; min-width:100px"
+                data-property="cluster3"
+                id="{{fieldIdPrefix}}rune-cluster3"
+                data-dtype="String">
+            {{#each runeClusters}}
+            <option value="{{this.id}}"
+                    {{#ifEquals this.id ../selectedRunes.cluster3}} selected{{/ifEquals}}>
+                {{this.label}}
+            </option>
+            {{/each}}
+        </select>
+
+    </div>
+</fieldset>

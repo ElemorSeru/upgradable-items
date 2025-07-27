@@ -1,0 +1,122 @@
+.upi-form-header {
+    font-size: 1.1em;
+    margin-bottom: 1em;
+    color: #4A90E2;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    font-weight: normal;
+}
+
+.upi-activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+    padding: 0 1em;
+}
+
+.upi-activity-card {
+    background: transparent;
+    border: 1px solid #9f9275;
+    border-radius: 4px;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upi-activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.upi-activity-name {
+    font-weight: 600;
+    font-size: 1.3em;
+    color: #fff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.upi-activity-name[title]::after {
+    content: " (ID: " attr(title) ")";
+    font-size: 0.55em;
+    color: #bbb;
+}
+
+.upi-upgradable-items-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1em;
+}
+
+.upi-upgradable-items-container input[type="text"] {
+    width: 150px;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    background-color: transparent;
+    color: #444;
+    transition: none;
+    margin-right: 1em;
+}
+
+.upi-upgradable-items-container input[type="text"]:focus {
+    border-color: #4A90E2;
+    outline: none;
+}
+
+.upi-no-activities {
+    font-size: 1em;
+    color: #888;
+    font-style: italic;
+    text-align: center;
+}
+.upi-save-button {
+    width: auto;
+    padding: 0.3em 0.6em;
+    font-size: 0.9em;
+    min-width: 30px;
+    text-align: center;
+    color: chartreuse;
+}
+
+.material-runes .precious-material select {
+    min-width: 0;
+    width: 0;
+}
+
+.dnd5e .material-runes .form-group {
+    flex-wrap: nowrap;
+}
+
+.upitab-extension {
+}
+
+.tooltip-container {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+}
+

@@ -1,0 +1,43 @@
+{
+  "upgradable-items": {
+    "tabs": {
+      "UPItab": "Upgrades"
+    },
+    "SOLVARIS": {
+      "Labels": {
+        "RuneTier1": {
+          "Label": "Item Enhancement Level",
+          "Hint": "Select the rune's enhancement intensity. Adds + to Armor or Dice to Attacks"
+        },
+        "EnvironmentalClustersLabel": "Slotted Cluster",
+        "MaterialRunes": {
+          "Label": "Upgrades and Runecrafting"
+        },
+        "MaterialRunesTier1": {
+          "Label": "Tier 1 Slot",
+          "Hint": "Adds damage typing to attack rolls or defensive boons based on Cluster type"
+        },
+        "MaterialRunesTier2": {
+          "Label": "Tier 2 Slot",
+          "Hint": "Grants non-status effect attack conditions to combat based on Cluster type"
+        },
+        "MaterialRunesTier3": {
+          "Label": "Tier 3 Slot",
+          "Hint": "Strategic boons and banes to you and your allies based on Cluster type"
+        }
+      },
+      "EnhancementLevels": {
+        "0": "None",
+        "1": "Runed",
+        "2": "Infused",
+        "3": "Awakened"
+      },
+      "Cluster": {
+        "0": "- Select a Cluster -",
+        "1": "Cluster 1 – Coastal, Grassland, Savannah, Urban/City",
+        "2": "Cluster 2 – Hills, Underground, Swamp, Desert, Forest",
+        "3": "Cluster 3 – Arctic, Feywild, Mountains, Volcanoes, Blightshore"
+      }
+    }
+  }
+}

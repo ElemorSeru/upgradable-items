@@ -1,0 +1,43 @@
+{
+  "upgradable-items": {
+    "tabs": {
+      "UPItab": "升级"
+    },
+    "SOLVARIS": {
+      "Labels": {
+        "RuneTier1": {
+          "Label": "物品强化等级",
+          "Hint": "选择符文的强化强度。增加护甲值或骰子攻击力"
+        },
+        "EnvironmentalClustersLabel": "开槽集群",
+        "MaterialRunes": {
+          "Label": "升级和符文制作"
+        },
+        "MaterialRunesTier1": {
+          "Label": "一级舱位",
+          "Hint": "根据集群类型为攻击掷骰或防御恩赐添加伤害类型"
+        },
+        "MaterialRunesTier2": {
+          "Label": "2级插槽",
+          "Hint": "根据集群类型授予非状态效果攻击条件进行战斗"
+        },
+        "MaterialRunesTier3": {
+          "Label": "3级插槽",
+          "Hint": "根据集群类型为你和你的盟友带来战略上的恩惠和祸害"
+        }
+      },
+      "EnhancementLevels": {
+        "0": "毫无",
+        "1": "符文",
+        "2": "注入",
+        "3": "觉醒"
+      },
+      "Cluster": {
+        "0": "- 选择一个集群 -",
+        "1": "集群 1 – 沿海、草原、热带草原、城镇/城市",
+        "2": "集群 2 – 山丘、地下、沼泽、沙漠、森林",
+        "3": "集群 3 – 北极、妖精荒野、山脉、火山、枯萎海岸"
+      }
+    }
+  }
+}

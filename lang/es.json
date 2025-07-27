@@ -1,0 +1,43 @@
+{
+  "upgradable-items": {
+    "tabs": {
+      "UPItab": "Actualizaciones"
+    },
+    "SOLVARIS": {
+      "Labels": {
+        "RuneTier1": {
+          "Label": "Nivel de mejora del objeto",
+          "Hint": "Selecciona la intensidad de mejora de la runa. Añade + a la armadura o a los dados de ataque."
+        },
+        "EnvironmentalClustersLabel": "Clúster ranurado",
+        "MaterialRunes": {
+          "Label": "Mejoras y creación de runas"
+        },
+        "MaterialRunesTier1": {
+          "Label": "Ranura de nivel 1",
+          "Hint": "Agrega tipos de daño a las tiradas de ataque o ventajas defensivas según el tipo de grupo."
+        },
+        "MaterialRunesTier2": {
+          "Label": "Ranura de nivel 2",
+          "Hint": "Otorga condiciones de ataque sin efectos de estado al combate según el tipo de grupo."
+        },
+        "MaterialRunesTier3": {
+          "Label": "Ranura de nivel 3",
+          "Hint": "Bendiciones y desventajas estratégicas para ti y tus aliados según el tipo de grupo."
+        }
+      },
+      "EnhancementLevels": {
+        "0": "Ninguna",
+        "1": "Runa",
+        "2": "Infundida",
+        "3": "Despertado"
+      },
+      "Cluster": {
+        "0": "- Seleccione un clúster -",
+        "1": "Grupo 1: Costa, pastizales, sabana, zonas urbanas/ciudad",
+        "2": "Grupo 2: Colinas, Subterráneo, Pantano, Desierto, Bosque",
+        "3": "Grupo 3: Ártico, Feywild, Montañas, Volcanes, Blightshore"
+      }
+    }
+  }
+}

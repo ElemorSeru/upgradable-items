@@ -1,0 +1,43 @@
+{
+  "upgradable-items": {
+    "tabs": {
+      "UPItab": "Mises à niveau"
+    },
+    "SOLVARIS": {
+      "Labels": {
+        "RuneTier1": {
+          "Label": "Niveau d'amélioration de l'objet",
+          "Hint": "Sélectionnez l'intensité d'amélioration de la rune. Ajoute + à l'armure ou aux dés aux attaques."
+        },
+        "EnvironmentalClustersLabel": "Cluster à fentes",
+        "MaterialRunes": {
+          "Label": "Améliorations et création de runes"
+        },
+        "MaterialRunesTier1": {
+          "Label": "Emplacement de niveau 1",
+          "Hint": "Ajoute un type de dégâts aux jets d'attaque ou aux avantages défensifs en fonction du type de groupe"
+        },
+        "MaterialRunesTier2": {
+          "Label": "Emplacement de niveau 2",
+          "Hint": "Accorde des conditions d'attaque sans effet de statut au combat en fonction du type de cluster"
+        },
+        "MaterialRunesTier3": {
+          "Label": "Emplacement de niveau 3",
+          "Hint": "Avantages et inconvénients stratégiques pour vous et vos alliés en fonction du type de cluster"
+        }
+      },
+      "EnhancementLevels": {
+        "0": "Nul",
+        "1": "Runique",
+        "2": "Infusé",
+        "3": "Éveillée"
+      },
+      "Cluster": {
+        "0": "- Sélectionnez un cluster -",
+        "1": "Groupe 1 – Côtier, Prairie, Savane, Urbain/Ville",
+        "2": "Groupe 2 – Collines, Souterrain, Marais, Désert, Forêt",
+        "3": "Groupe 3 – Arctique, Feywild, Montagnes, Volcans, Blightshore"
+      }
+    }
+  }
+}
