@@ -24,6 +24,20 @@
         "MaterialRunesTier3": {
           "Label": "Emplacement de niveau 3",
           "Hint": "Avantages et inconvénients stratégiques pour vous et vos alliés en fonction du type de cluster"
+        },
+        "SpellUpgrade": {
+          "Label": "Amélioration des sorts",
+          "Hint": "Sélectionnez un sort à accorder lorsque cet objet est équipé."
+        },
+        "SpellDefaultLabel": "- Sélectionnez un sort -",
+        "FeatDefaultLabel": "- Sélectionnez un exploit -",
+        "FeatUpgrade": {
+          "Label": "Amélioration des exploits",
+          "Hint": "Sélectionnez un exploit à accorder lorsque cet objet est équipé."
+        },
+        "AdditionalUpgrades": {
+          "Label": "Avantages Supplémentaires",
+          "Hint": "Accorder des avantages de sort ou de don supplémentaires à un objet"
         }
       },
       "EnhancementLevels": {

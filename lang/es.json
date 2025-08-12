@@ -24,6 +24,20 @@
         "MaterialRunesTier3": {
           "Label": "Ranura de nivel 3",
           "Hint": "Bendiciones y desventajas estratégicas para ti y tus aliados según el tipo de grupo."
+        },
+        "SpellUpgrade": {
+          "Label": "Mejora de hechizos",
+          "Hint": "Selecciona un hechizo para otorgar cuando este objeto esté equipado."
+        },
+        "SpellDefaultLabel": "- Selecciona un hechizo -",
+        "FeatDefaultLabel": "- Seleccione una hazaña -",
+        "FeatUpgrade": {
+          "Label": "Mejora de hazañas",
+          "Hint": "Selecciona una dote para otorgar cuando este objeto esté equipado."
+        },
+        "AdditionalUpgrades": {
+          "Label": "Beneficios adicionales",
+          "Hint": "Otorgar ventajas de hechizo o dote adicionales a un objeto"
         }
       },
       "EnhancementLevels": {

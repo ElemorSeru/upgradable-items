@@ -24,6 +24,20 @@
         "MaterialRunesTier3": {
           "Label": "ティア3スロット",
           "Hint": "クラスタータイプに基づいて、あなたとあなたの仲間に戦略的な恩恵と災いをもたらします"
+        },
+        "SpellUpgrade": {
+          "Label": "呪文強化",
+          "Hint": "このアイテムを装備したときに付与する呪文を選択します。"
+        },
+        "SpellDefaultLabel": "- 呪文を選択 -",
+        "FeatDefaultLabel": "- 特技を選択 -",
+        "FeatUpgrade": {
+          "Label": "特技強化",
+          "Hint": "このアイテムを装備したときに付与する特技を選択します。"
+        },
+        "AdditionalUpgrades": {
+          "Label": "追加特典",
+          "Hint": "アイテムに追加の呪文や特技の特典を付与する"
         }
       },
       "EnhancementLevels": {

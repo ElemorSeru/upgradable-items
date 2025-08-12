@@ -1,13 +1,14 @@
 <fieldset class="upitab-extension">
     <legend>{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunes.Label"}}</legend>
 
+    <!-- Enhancement Level -->
     <div class="form-group">
         <label class="tooltip-container">
             {{localize "upgradable-items.SOLVARIS.Labels.RuneTier1.Label"}}
             <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.RuneTier1.Hint"}}</span>
         </label>
 
-        <select style="margin:5px; min-width:100px"
+        <select style="margin: 5px 0px 5px 0px; min-width: 100px"
                 data-property="enhanceLvl"
                 id="{{fieldIdPrefix}}rune-enhanceLvl"
                 data-dtype="String">
@@ -19,14 +20,16 @@
             {{/each}}
         </select>
     </div>
-    <legend style="margin-top:5px; text-align:center">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier1.Label"}}</legend>
+
+    <!-- Tier 1 Cluster -->
+    <!--<legend style="margin-top:5px; text-align:center">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier1.Label"}}</legend> -->
     <div class="form-group">
         <label class="tooltip-container">
-            {{localize "upgradable-items.SOLVARIS.Labels.EnvironmentalClustersLabel"}}
+            {{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier1.Label"}}
             <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier1.Hint"}}</span>
         </label>
 
-        <select style="margin:5px; min-width:100px"
+        <select style="margin:0px; min-width:100px"
                 data-property="cluster1"
                 id="{{fieldIdPrefix}}rune-cluster1"
                 data-dtype="String">
@@ -37,17 +40,17 @@
             </option>
             {{/each}}
         </select>
-
     </div>
 
-    <legend style="margin-top:5px; text-align:center">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier2.Label"}}</legend>
+    <!-- Tier 2 Cluster -->
+    <!-- <legend style="margin-top:5px; text-align:center">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier2.Label"}}</legend> -->
     <div class="form-group">
         <label class="tooltip-container">
-            {{localize "upgradable-items.SOLVARIS.Labels.EnvironmentalClustersLabel"}}
+            {{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier2.Label"}}
             <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier2.Hint"}}</span>
         </label>
 
-        <select style="margin:5px; min-width:100px"
+        <select style="margin:0px; min-width:100px"
                 data-property="cluster2"
                 id="{{fieldIdPrefix}}rune-cluster2"
                 data-dtype="String">
@@ -58,17 +61,17 @@
             </option>
             {{/each}}
         </select>
-
     </div>
 
-    <legend style="margin-top:5px; text-align:center">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier3.Label"}}</legend>
+    <!-- Tier 3 Cluster -->
+    <!--<legend style="margin-top:5px; text-align:center">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier3.Label"}}</legend>-->
     <div class="form-group">
         <label class="tooltip-container">
-            {{localize "upgradable-items.SOLVARIS.Labels.EnvironmentalClustersLabel"}}
+            {{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier3.Label"}}
             <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.MaterialRunesTier3.Hint"}}</span>
         </label>
 
-        <select style="margin:5px; min-width:100px"
+        <select style="margin:0px 0px 5px 0px; min-width:100px"
                 data-property="cluster3"
                 id="{{fieldIdPrefix}}rune-cluster3"
                 data-dtype="String">
@@ -79,6 +82,44 @@
             </option>
             {{/each}}
         </select>
+    </div>
+    <hr style="border: 0.5px thin white; width: 99%; margin: 10px 0px 2px 0px;">
+    <legend style="margin: 5px 0px 2px 0px; text-align: left">{{localize "upgradable-items.SOLVARIS.Labels.AdditionalUpgrades.Label"}}</legend>
+    <!-- Spell Dropdown -->
+    <div class="form-group">
+        <label class="tooltip-container">
+            {{localize "upgradable-items.SOLVARIS.Labels.SpellUpgrade.Label"}}
+            <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.SpellUpgrade.Hint"}}</span>
+        </label>
 
+        <select name="flags.upgradable-items.selectedSpell"
+                style="margin: 5px 0px 5px 0px; min-width: 100px">
+            <option value="">{{localize "upgradable-items.SOLVARIS.Labels.SpellDefaultLabel"}}</option>
+            {{#each spells}}
+            <option value="{{this.pack}}.{{this.id}}"
+                    {{#ifEquals ../selectedSpell (concat this.pack "." this.id)}} selected{{/ifEquals}}>
+                {{this.label}}
+            </option>
+            {{/each}}
+        </select>
+    </div>
+
+    <!-- Feat Dropdown -->
+    <div class="form-group">
+        <label class="tooltip-container">
+            {{localize "upgradable-items.SOLVARIS.Labels.FeatUpgrade.Label"}}
+            <span class="tooltip-text">{{localize "upgradable-items.SOLVARIS.Labels.FeatUpgrade.Hint"}}</span>
+        </label>
+
+        <select name="flags.upgradable-items.selectedFeat"
+                style="margin: 5px 0px 5px 0px; min-width: 100px ">
+            <option value="">{{localize "upgradable-items.SOLVARIS.Labels.FeatDefaultLabel"}}</option>
+            {{#each feats}}
+            <option value="{{this.pack}}.{{this.id}}"
+                    {{#ifEquals ../selectedFeat (concat this.pack "." this.id)}} selected{{/ifEquals}}>
+                {{this.label}}
+            </option>
+            {{/each}}
+        </select>
     </div>
 </fieldset>

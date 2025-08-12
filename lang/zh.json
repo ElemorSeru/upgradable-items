@@ -24,6 +24,20 @@
         "MaterialRunesTier3": {
           "Label": "3级插槽",
           "Hint": "根据集群类型为你和你的盟友带来战略上的恩惠和祸害"
+        },
+        "SpellUpgrade": {
+          "Label": "法术增强",
+          "Hint": "选择装备此物品时要授予的法术。"
+        },
+        "SpellDefaultLabel": "- 选择法术 -",
+        "FeatDefaultLabel": "- 选择一个壮举 -",
+        "FeatUpgrade": {
+          "Label": "壮举增强",
+          "Hint": "选择装备此物品时授予的专长。"
+        },
+        "AdditionalUpgrades": {
+          "Label": "额外福利",
+          "Hint": "为物品赋予额外的法术或专长"
         }
       },
       "EnhancementLevels": {

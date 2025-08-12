@@ -24,6 +24,20 @@
         "MaterialRunesTier3": {
           "Label": "Tier 3 Slot",
           "Hint": "Strategic boons and banes to you and your allies based on Cluster type"
+        },
+        "SpellUpgrade": {
+          "Label": "Spell Enhancement",
+          "Hint": "Select a spell to grant when this item is equipped."
+        },
+        "SpellDefaultLabel": "- Select a Spell -",
+        "FeatDefaultLabel": "- Select a Feat -",
+        "FeatUpgrade": {
+          "Label": "Feat Enhancement",
+          "Hint": "Select a feat to grant when this item is equipped."
+        },
+        "AdditionalUpgrades": {
+          "Label": "Additional Perks",
+          "Hint": "Grant additional spell or feat perks to an item"
         }
       },
       "EnhancementLevels": {
