@@ -34,21 +34,21 @@ These indicate "Tiers" of upgrades. Consider them like slotting runes or magical
 | --- | --- | 
 | Melee Weapon | Radiant or thunder damage |
 | Armor | Attacker takes lightning damage on melee hit (once/turn) |
-| Ranged Ammo | Sonic damage + tracer whistle (helps allies target) |
+| Ranged Weapon | Sonic damage + tracer whistle (helps allies target) |
 
 #### 🌿 Cluster II
 | Item Type | Description | 
 | --- | --- | 
 | Melee Weapon | Acid or necrotic damage |
 | Armor | While prone, regain HP equal to enhancement die |
-| Ranged Ammo | Poison trace, delayed damage on next turn |
+| Ranged Weapon | Poison trace, delayed damage on next turn |
 
 #### 🔥 Cluster III
 | Item Type | Description | 
 | --- | --- | 
 | Melee Weapon | Fire or cold damage |
 | Armor | Below half HP, regain HP equal to enhancement die |
-| Ranged Ammo | Reduces target’s movement by 5 ft per damage die |
+| Ranged Weapon | Reduces target’s movement by 5 ft per damage die |
 
 
 ### 🔨 Tier 2 Cluster Effects
@@ -60,21 +60,21 @@ Triggered on crits or once per short rest
 | --- | --- | 
 | Melee Weapon | Crit + push target 10 ft (Str save DC 13) |
 | Armor | Move through allies without provoking (1/rest) |
-| Ranged Ammo | Creates light cover for adjacent ally via debris |
+| Ranged Weapon | Creates light cover for adjacent ally via debris |
   
 #### 🌿 Cluster II
 | Item Type | Description | 
 | --- | --- | 
 | Melee Weapon | Crit + pull 5 ft or stagger footing |
 | Armor | Ignore terrain penalties once/turn |
-| Ranged Ammo | Prevents Dash action for affected enemy |
+| Ranged Weapon | Prevents Dash action for affected enemy |
 
 #### 🔥 Cluster III
 | Item Type | Description | 
 | --- | --- | 
 | Melee Weapon | Kill + pulse reveals terrain, enemies lose reactions |
 | Armor | First melee attacker Con save or lose reaction |
-| Ranged Ammo | Reveals illusion/concealed target (1 turn) |
+| Ranged Weapon | Reveals illusion/concealed target (1 turn) |
 
 
 ### 🛠️ Tier 3 Cluster Effects
@@ -86,21 +86,21 @@ Must be forged in matching terrain. Usable once per long rest.
 | --- | --- | 
 | Melee Weapon | Allies gain +2 to hit vs. struck target |
 | Armor | Allies within 10 ft get +2 AC briefly |
-| Ranged Ammo | Reveals invisible/concealed creatures near impact |
+| Ranged Weapon | Reveals invisible/concealed creatures near impact |
 
 #### 🌿 Cluster II
 | Item Type | Description | 
 | --- | --- | 
 | Melee Weapon | Struck target loses cover benefit |
 | Armor | Stationary grants +2 AC (light cover) |
-| Ranged Ammo | Creates 5 ft debris wall (half cover for ally) |
+| Ranged Weapon | Creates 5 ft debris wall (half cover for ally) |
 
 #### 🔥 Cluster III
 | Item Type | Description | 
 | --- | --- | 
 | Melee Weapon | Phantom illusion appears adjacent to target |
 | Armor | At ≤10 HP, aura imposes disadvantage on ranged attacks |
-| Ranged Ammo | Target can’t succeed Stealth until rune damage removed |
+| Ranged Weapon | Target can’t succeed Stealth until rune damage removed |
 
 ## Additional Perks
 Spell Enhancement and Feat Enhancment both read from the existing compendiums and list all the items you have access to. Once selected, the Spell or Feat/Feature will be added to the actor. Selecting a different Spell/Feat/Feature or defaulting back to the "Select a X" option will remove it. As mentioned before, these also only apply if the item is equipped and/or if attunement is gained for the item (if attunement is required). Unequipping will remove any added perks and equipping should re-add them. 
