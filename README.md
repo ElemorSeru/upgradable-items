@@ -32,23 +32,23 @@ These indicate "Tiers" of upgrades. Consider them like slotting runes or magical
 #### 🌀 Cluster I
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Radiant or thunder damage |
-| Armor | Attacker takes lightning damage on melee hit (once/turn) |
-| Ranged Weapon | Sonic damage + tracer whistle (helps allies target) |
+| Melee Weapon | Adds Radiant or thunder damage die to damage rolls according to enhancement level |
+| Armor | Attacker takes lightning damage on melee hit equal to the enhancement die value |
+| Ranged Weapon | On successful Dmg roll, Sonic attack causing target to have disadvantage on attacks for 1 round |
 
 #### 🌿 Cluster II
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Acid or necrotic damage |
-| Armor | While prone, regain HP equal to enhancement die |
-| Ranged Weapon | Poison trace, delayed damage on next turn |
+| Melee Weapon | Acid or necrotic damage die to damage rolls according to enhancement level |
+| Armor | When falling prone and below half total HP, regain HP equal to enhancement die |
+| Ranged Weapon | On successful Dmg roll, poison ammunition, target takes at start of each turn for 10 rounds or DC 13 Con save to save |
 
 #### 🔥 Cluster III
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Fire or cold damage |
-| Armor | Below half HP, regain HP equal to enhancement die |
-| Ranged Weapon | Reduces target’s movement by 5 ft per damage die |
+| Melee Weapon | Fire or cold damage die to damage rolls according to enhancement level |
+| Armor | Falling below half HP, regain HP equal to enhancement die roll |
+| Ranged Weapon | On successful Dmg roll, reduces target’s movement by 5 ft per enhancement die rolled value |
 
 
 ### 🔨 Tier 2 Cluster Effects
@@ -58,49 +58,49 @@ Triggered on crits or once per short rest
 #### 🌀 Cluster I
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Crit + push target 10 ft (Str save DC 13) |
-| Armor | Move through allies without provoking (1/rest) |
-| Ranged Weapon | Creates light cover for adjacent ally via debris |
+| Melee Weapon | On successful crit Dmg roll, On DC13 Str, push target 10 ft |
+| Armor | Grants passive ability to move through allies without provoking opportunity attacks as long as movement allows and and passing through an ally |
+| Ranged Weapon | On successful Dmg roll, creates 10ft light cover for adjacent allies |
   
 #### 🌿 Cluster II
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Crit + pull 5 ft or stagger footing |
-| Armor | Ignore terrain penalties once/turn |
-| Ranged Weapon | Prevents Dash action for affected enemy |
+| Melee Weapon | On successful crit Dmg roll, push 5ft + stagger target (half movement for 1 round) |
+| Armor | Grants user the Mobile feat |
+| Ranged Weapon | On successful Dmg roll, prevents Dash action for affected enemy for 1 round |
 
 #### 🔥 Cluster III
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Kill + pulse reveals terrain, enemies lose reactions |
-| Armor | First melee attacker Con save or lose reaction |
-| Ranged Weapon | Reveals illusion/concealed target (1 turn) |
+| Melee Weapon | On successfull Dmg roll, when target reaches 0hp, trigger area within 15ft of attacker to cause hostile creatures to lose reaction for 1 round |
+| Armor | First melee attacker DC14 Con save or bonus action |
+| Ranged Weapon | On successful Dmg roll, target or empty space and 15ft around it reveal illusions/concealment/hiding creatures |
 
 
 ### 🛠️ Tier 3 Cluster Effects
-Battlefield synergy, concealment piercing, ally shielding
+Battlefield synergy, resilliance, boons
 Must be forged in matching terrain. Usable once per long rest.
 
 #### 🌀 Cluster I
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Allies gain +2 to hit vs. struck target |
-| Armor | Allies within 10 ft get +2 AC briefly |
-| Ranged Weapon | Reveals invisible/concealed creatures near impact |
+| Melee Weapon | On successful Crit, Allies within 20ft gain +2 to hit against target for 2 rounds |
+| Armor | On melee Dmg recieved, Allies within 10ft gain +2 to AC for 2 rounds |
+| Ranged Weapon | On successfull Dmg roll, hostile creatures within 15ft of target or space are pulled 5ft closer to center of target |
 
 #### 🌿 Cluster II
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Struck target loses cover benefit |
+| Melee Weapon | On Successful Dmg Roll, Target is restrained on DC15 Dex and takes necrotic damage equal to enhancement die |
 | Armor | Stationary grants +2 AC (light cover) |
-| Ranged Weapon | Creates 5 ft debris wall (half cover for ally) |
+| Ranged Weapon | Create 15ft area of poison damage. DC14 Con save to not be poisoned. Cloud moves 5ft/round |
 
 #### 🔥 Cluster III
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Phantom illusion appears adjacent to target |
-| Armor | At ≤10 HP, aura imposes disadvantage on ranged attacks |
-| Ranged Weapon | Target can’t succeed Stealth until rune damage removed |
+| Melee Weapon | Create phantom illusion that gives advantage to the next attack |
+| Armor | At 50% HP or lower, gain resistance to all damage until the end of next round. Hostile creatures within 10ft make DC15 Wis or become frightened |
+| Ranged Weapon | Gain the Sharpshooter feat |
 
 ## Additional Perks
 Spell Enhancement and Feat Enhancment both read from the existing compendiums and list all the items you have access to. Once selected, the Spell or Feat/Feature will be added to the actor. Selecting a different Spell/Feat/Feature or defaulting back to the "Select a X" option will remove it. As mentioned before, these also only apply if the item is equipped and/or if attunement is gained for the item (if attunement is required). Unequipping will remove any added perks and equipping should re-add them. 
