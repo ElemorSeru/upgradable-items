@@ -590,6 +590,55 @@ async function removeItemFromActor(actor, compRef, sourceItem) {
     }
 }
 
+// Runic Empowerment (Stat boosts) Logic
+async function updateRunicEmpowermentEffect(item) {
+    const actor = item.actor;
+    if (!actor || !meetsUpgradableRequirements(item)) return;
+
+    const abilities = ["str", "dex", "con", "int", "wis", "cha"];
+    const boosts = abilities.map(ab => ({
+        ability: ab,
+        value: parseInt(item.getFlag("upgradable-items", `empowerment-${ab}`) ?? "0")
+    })).filter(b => b.value > 0);
+
+    const label = `Runic Empowerment (${item.name})`;
+    let icon = item.img;
+    if (item.type === "weapon" && item.system.actionType === "mwak") {
+        icon = "icons/weapons/swords/sword-flanged-lightning.webp";
+    } else if (item.type === "weapon" && item.system.actionType === "rwak") {
+        icon = "icons/weapons/ammunition/arrowhead-glowing-blue.webp";
+    } else if (item.type === "equipment" && item.system.armor) {
+        icon = "icons/magic/defensive/shield-barrier-blue.webp";
+    }
+    const existing = actor.effects.find(e => e.label === label && e.origin === item.uuid);
+    if (existing) await actor.deleteEmbeddedDocuments("ActiveEffect", [existing.id]);
+
+    if (boosts.length === 0) return;
+
+    const changes = boosts.map(b => ({
+        key: `system.abilities.${b.ability}.value`,
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: `${b.value}`,
+        priority: 20
+    }));
+
+    const description = boosts.map(b => `${b.ability.toUpperCase()}: +${b.value}`).join(", ");
+
+    const effectData = {
+        label,
+        icon: icon,
+        origin: item.uuid,
+        duration: { rounds: 9999 },
+        description: `Runic Empowerment grants: ${description}`,
+        changes,
+        flags: {
+            "upgradable-items": { sourceItem: item.id }
+        }
+    };
+
+    await actor.createEmbeddedDocuments("ActiveEffect", [effectData]);
+}
+
 //async function removeItemFromActor(actor, compRef, sourceItem) {
 //    const parts = compRef.split(".");
 //    const packId = parts.slice(0, -1).join(".");
@@ -609,6 +658,9 @@ Hooks.once("init", () => {
     loadTemplates(["modules/upgradable-items/templates/upitab-template.hbs"]);
     Handlebars.registerHelper("ifEquals", function (a, b, options) {
         return a === b ? options.fn(this) : options.inverse(this);
+    });
+    Handlebars.registerHelper("range", (start, end) => {
+        return Array.from({ length: end - start + 1 }, (_, i) => i + start);
     });
 });
 
@@ -1081,7 +1133,7 @@ Hooks.on("renderChatMessage", async (msg, html, data) => {
         });
     }
 
-    // Cluster II Tier 2 : Melee Weapon: Crit - Pull + Stagger
+    // Cluster II Tier 2 : Melee Weapon: Crit - Push + Stagger
     if (isMeleeWeapon(item) && cluster2 === "2" && isCritical && meetsUpgradableRequirements(item)) {
         const chatContent = targetActor
             ? `${targetActor.name} is pushed and staggered by the rune strike. The target has half movement for 1 round.`
@@ -1712,13 +1764,22 @@ Hooks.on("renderItemSheet5e", async (app, html, data) => {
             itemType === "equipment" ||
             (itemType === "weapon" && ["mwak", "rwak"].includes(actionType));
 
-
         const detailsTab = html.find('.tab.details[data-tab="details"]');
         if (!detailsTab.length) return;
         const sheetBody = detailsTab.children().first();
         if (!sheetBody.length) return;
         const fieldsets = sheetBody.find('fieldset:not(.upitab-extension)');
         const target = fieldsets.length ? fieldsets.last() : sheetBody;
+
+        const abilityKeys = ["str", "dex", "con", "int", "wis", "cha"];
+
+        const empowermentOptions = abilityKeys.map(key => ({
+            key,
+            label: key.toUpperCase(),
+            value: parseInt(itemFlags[`empowerment-${key}`] ?? "0")
+        }));
+
+        const boostRange = Array.from({ length: 11 }, (_, i) => i); // [0–10]
 
         const selectedRunes = {
             enhanceLvl: itemFlags.enhanceLvl ?? "0",
@@ -1737,10 +1798,36 @@ Hooks.on("renderItemSheet5e", async (app, html, data) => {
             feats,
             selectedSpell,
             selectedFeat,
-            showUpgrades
+            showUpgrades,
+            empowermentOptions,
+            boostRange
         });
 
         const injectedHtml = $(htmlload);
+
+        // Handle stat boost changes
+        abilityKeys.forEach(ability => {
+            injectedHtml.find(`[data-property="empowerment-${ability}"]`).on("change", async (event) => {
+                const selectedBonus = parseInt(event.target.value);
+                const actor = app.object.actor;
+                if (!actor) return;
+
+                const baseValue = actor.system.abilities[ability]?.value ?? 0;
+                const maxAllowedBonus = Math.max(0, 30 - baseValue);
+
+                let appliedBonus = selectedBonus;
+
+                if (baseValue + selectedBonus > 30) {
+                    appliedBonus = maxAllowedBonus;
+                    event.target.value = appliedBonus;
+
+                    ui.notifications.warn(`${ability.toUpperCase()} bonus capped at +${appliedBonus} (max stat value is 30).`);
+                }
+
+                await app.object.setFlag("upgradable-items", `empowerment-${ability}`, appliedBonus);
+                await updateRunicEmpowermentEffect(app.object);
+            });
+        });
 
         // Handle rune cluster changes
         injectedHtml.find('[data-property]').on("change", async (event) => {
@@ -1759,8 +1846,6 @@ Hooks.on("renderItemSheet5e", async (app, html, data) => {
         injectedHtml.find('[name="flags.upgradable-items.selectedSpell"]').on("change", async (event) => {
             const newValue = event.target.value;
             const prevValue = itemFlags.selectedSpell;
-
-            // Update the flag first
             await app.object.setFlag("upgradable-items", "selectedSpell", newValue);
 
             const actor = app.object.actor;
@@ -1775,12 +1860,10 @@ Hooks.on("renderItemSheet5e", async (app, html, data) => {
 
             if (!actor) return;
 
-            // Remove previous spell if one was selected
             if (prevValue) {
                 await removeItemFromActor(actor, prevValue, app.object);
             }
 
-            // Add new spell if one is selected and requirements are met
             if (newValue && meetsRequirements) {
                 await addItemToActor(actor, newValue, app.object);
             }
@@ -1790,8 +1873,6 @@ Hooks.on("renderItemSheet5e", async (app, html, data) => {
         injectedHtml.find('[name="flags.upgradable-items.selectedFeat"]').on("change", async (event) => {
             const newValue = event.target.value;
             const prevValue = itemFlags.selectedFeat;
-
-            // Update the flag first
             await app.object.setFlag("upgradable-items", "selectedFeat", newValue);
 
             const actor = app.object.actor;
@@ -1806,12 +1887,10 @@ Hooks.on("renderItemSheet5e", async (app, html, data) => {
 
             if (!actor) return;
 
-            // Remove previous spell if one was selected
             if (prevValue) {
                 await removeItemFromActor(actor, prevValue, app.object);
             }
 
-            // Add new spell if one is selected and requirements are met
             if (newValue && meetsRequirements) {
                 await addItemToActor(actor, newValue, app.object);
             }
@@ -1821,14 +1900,11 @@ Hooks.on("renderItemSheet5e", async (app, html, data) => {
         injectedHtml.find('[name="flags.upgradable-items.enhanceLvl"]').on("change", async (event) => {
             const newValue = event.target.value;
             const prevValue = itemFlags.enhanceLvl ?? "0";
-
-            // Update the flag first
             await app.object.setFlag("upgradable-items", "enhanceLvl", newValue);
 
             const actor = app.object.actor;
             if (!actor) return;
 
-            // Re-evaluate item to update enhancement effect
             await evaluateUpgradableItem(app.object);
             await applyUpgradableEnhancement(app.object);
         });

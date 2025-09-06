@@ -84,6 +84,20 @@
             {{/each}}
         </select>
     </div>
+    <!-- Runic Empowerment Stat Boosts -->
+    <legend style="margin: 10px 0px 5px 0px;">{{localize "upgradable-items.SOLVARIS.Labels.RunicEmpowerment.Label"}}</legend>
+    <div class="form-group" style="display: flex; gap: 10px; flex-wrap: wrap;">
+        {{#each empowermentOptions}}
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <label>{{this.label}}</label>
+            <select data-property="empowerment-{{this.key}}" style="min-width: 60px;" data-dtype="Number">
+                {{#each ../boostRange}}
+                <option value="{{this}}" {{#ifEquals this ../value}} selected{{/ifEquals}}>+{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+        {{/each}}
+    </div>
     <hr style="border: 0.5px thin white; width: 99%; margin: 10px 0px 2px 0px;">
     <legend style="margin: 5px 0px 2px 0px; text-align: left">{{localize "upgradable-items.SOLVARIS.Labels.AdditionalUpgrades.Label"}}</legend>
     <!-- Spell Dropdown -->
