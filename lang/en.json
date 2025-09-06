@@ -38,6 +38,10 @@
         "AdditionalUpgrades": {
           "Label": "Additional Perks",
           "Hint": "Grant additional spell or feat perks to an item"
+        },
+        "RunicEmpowerment": {
+          "Label": "Runic Stat Empowerment",
+          "Hint": "Grant additional boost to player base stats up to a total cap of 30"
         }
       },
       "EnhancementLevels": {
