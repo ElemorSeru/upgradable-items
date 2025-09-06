@@ -38,6 +38,10 @@
         "AdditionalUpgrades": {
           "Label": "Beneficios adicionales",
           "Hint": "Otorgar ventajas de hechizo o dote adicionales a un objeto"
+        },
+        "RunicEmpowerment": {
+          "Label": "Potenciación de estadísticas rúnicas",
+          "Hint": "Otorga un impulso adicional a las estadísticas base del jugador hasta un límite total de 30"
         }
       },
       "EnhancementLevels": {

@@ -38,6 +38,10 @@
         "AdditionalUpgrades": {
           "Label": "Avantages Supplémentaires",
           "Hint": "Accorder des avantages de sort ou de don supplémentaires à un objet"
+        },
+        "RunicEmpowerment": {
+          "Label": "Renforcement des statistiques runiques",
+          "Hint": "Accorder un boost supplémentaire aux statistiques de base du joueur jusqu'à un plafond total de 30"
         }
       },
       "EnhancementLevels": {

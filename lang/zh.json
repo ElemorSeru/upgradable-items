@@ -38,6 +38,10 @@
         "AdditionalUpgrades": {
           "Label": "额外福利",
           "Hint": "为物品赋予额外的法术或专长"
+        },
+        "RunicEmpowerment": {
+          "Label": "符文属性强化",
+          "Hint": "为玩家基础属性提供额外提升，最高可达 30"
         }
       },
       "EnhancementLevels": {

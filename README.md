@@ -1,3 +1,4 @@
+<a href="https://gitlocalize.com/repo/10450?utm_source=badge"> <img src="https://gitlocalize.com/repo/10450/whole_project/badge.svg" /> </a>
 # Upgradable Item Slots
 A Dnd5e **(Still WIP)** module for the Foundry VTT system that is an attempt at streamlining the item upgrade process for your players and the yourself as the DM/GM. What this offers is a way to take an item, modify "slots" and give items perks and features rather than always having to create and item and manually adjust things which take time. The ideal is inspired by dwarven runes being slotted into items and those runes giving perks, boons, and banes accordingly.
 
@@ -101,6 +102,9 @@ Must be forged in matching terrain. Usable once per long rest.
 | Melee Weapon | Create phantom illusion that gives advantage to the next attack |
 | Armor | At 50% HP or lower, gain resistance to all damage until the end of next round. Hostile creatures within 10ft make DC15 Wis or become frightened |
 | Ranged Weapon | Gain the Sharpshooter feat |
+
+## Runic Stat Empowerment
+Runic Stat Empowerment is meant to give boons to an actor and stack up to a maximum of 30 in said stat. These fields add a value to your base stat up to 10 per item. Multiple items with said bonus stack up to 30 and will downgrade according to the value reaching 30. Example being: If base STR stat is 27 and the user selects +10, the item's bonus STR enhancement will downgrade to +3 automatically.
 
 ## Additional Perks
 Spell Enhancement and Feat Enhancment both read from the existing compendiums and list all the items you have access to. Once selected, the Spell or Feat/Feature will be added to the actor. Selecting a different Spell/Feat/Feature or defaulting back to the "Select a X" option will remove it. As mentioned before, these also only apply if the item is equipped and/or if attunement is gained for the item (if attunement is required). Unequipping will remove any added perks and equipping should re-add them. 

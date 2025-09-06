@@ -340,11 +340,9 @@ async function evaluateUpgradableItem(item) {
             await addItemToActor(actor, compRef, item);
 
         } else if (rangedCluster3 !== "3" || !meetsRequirements) {
-            console.log("In Sharpshooter Remove");
             const sharpshooterEntry = await findCompendiumItemByIdentifier("sharpshooter");
             if (sharpshooterEntry) {
-                console.log("In Sharpshooter Remove 2");
-                console.log(sharpshooterEntry);
+                //console.log(sharpshooterEntry);
                 await removeItemFromActor(actor, sharpshooterEntry.id, item);
             }
         }
@@ -472,11 +470,6 @@ async function applyMeleeEnhancements(actor, item, upgrades) {
     const roll = new Roll(`${damageDie}`);
     await roll.evaluate({ async: true });
 
-    //await roll.toMessage({
-    //    speaker: ChatMessage.getSpeaker({ actor }),
-    //    flavor: `${item.name} unleashes ${roll.total} ${damageType} damage from its Cluster I rune.`,
-    //    rollMode: game.settings.get("core", "rollMode")
-    //});
     await roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor }),
         flavor: `${item.name} unleashes ${roll.total} ${damageType} damage from its Cluster I rune.`,
@@ -639,20 +632,6 @@ async function updateRunicEmpowermentEffect(item) {
     await actor.createEmbeddedDocuments("ActiveEffect", [effectData]);
 }
 
-//async function removeItemFromActor(actor, compRef, sourceItem) {
-//    const parts = compRef.split(".");
-//    const packId = parts.slice(0, -1).join(".");
-//    const entryId = parts.at(-1);
-
-//    const toRemove = actor.items.filter(i =>
-//        i.flags?.["upgradable-items"]?.sourceId === sourceItem.id &&
-//        i.flags?.["upgradable-items"]?.entryId === entryId
-//    );
-//    if (toRemove.length) {
-//        await actor.deleteEmbeddedDocuments("Item", toRemove.map(i => i.id));
-//    }
-//}
-
 // Hooks //
 Hooks.once("init", () => {
     loadTemplates(["modules/upgradable-items/templates/upitab-template.hbs"]);
@@ -680,8 +659,6 @@ Hooks.on("preUpdateItem", async (item, changes) => {
 
     const unequipped = wasEquipped && willBeEquipped === false;
     const unattuned = attunementRequired && wasAttuned && willBeAttuned === false;
-    //const cluster2Changed = itemFlags.cluster2 === "2" && changes.flags?.["upgradable-items"]?.cluster2 !== "2";
-    //const cluster3Changed = itemFlags.cluster3 === "3" && changes.flags?.["upgradable-items"]?.cluster3 !== "3";
     const oldCluster2 = item.getFlag("upgradable-items", "cluster2");
     const newCluster2 = changes.flags?.["upgradable-items"]?.cluster2;
     const cluster2Changed = oldCluster2 && oldCluster2 !== newCluster2;
@@ -717,8 +694,6 @@ Hooks.on("dnd5e.preApplyDamage", async (actor, damageData) => {
     const flags = armor.flags["upgradable-items"] ?? {};
     const { cluster1 = "0", enhanceLvl = "1" } = flags;
     const enhancementDie = getDieFormula(enhanceLvl);
-    //const hp = actor.system.attributes.hp.value;
-    //const maxHP = actor.system.attributes.hp.max;
 
     if (cluster1 === "1" && damageData.attackType === "melee" && isRuneReady(actor, "rune-reflected")) {
         await actor.setFlag("upgradable-items", "rune-reflected", true);
@@ -726,18 +701,6 @@ Hooks.on("dnd5e.preApplyDamage", async (actor, damageData) => {
         await damageData.source?.applyDamage?.(roll.total);
         ChatMessage.create({ speaker: { actor }, content: `Attacker was shocked for ${roll.total} lightning damage!` });
     }
-
-    //if (cluster1 === "3" && hp < maxHP / 2) {
-    //    const roll = await new Roll(enhancementDie).roll({ async: true });
-    //    await actor.applyDamage(-roll.total);
-    //    ChatMessage.create({ speaker: { actor }, content: `Rune armor pulsed, restored ${roll.total} HP!` });
-    //}
-
-    //if (cluster1 === "3" && hp <= 10 && damageData.attackType === "ranged") {
-    //    const attacker = damageData.source;
-    //    await attacker.setFlag("upgradable-items", "imposeDisadvantage", true);
-    //    ChatMessage.create({ speaker: { actor }, content: `Rune aura flared, ranged attacker suffers disadvantage.` });
-    //}
 
     // Cluster I Ranged Weapon: Apply disadvantage to target
     if (isRangedWeapon(damageData.item) && damageData.item.flags?.["upgradable-items"]?.cluster1 === "1") {

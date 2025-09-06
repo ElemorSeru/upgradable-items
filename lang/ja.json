@@ -38,6 +38,10 @@
         "AdditionalUpgrades": {
           "Label": "追加特典",
           "Hint": "アイテムに追加の呪文や特技の特典を付与する"
+        },
+        "RunicEmpowerment": {
+          "Label": "ルーンステータス強化",
+          "Hint": "プレイヤーの基本ステータスに合計30までの追加のブーストを付与します。"
         }
       },
       "EnhancementLevels": {

@@ -41,9 +41,62 @@
         },
         "RunicEmpowerment": {
           "Label": "Runic Stat Empowerment",
-          "Hint": "Grant additional boost to player base stats up to a total cap of 30"
+          "Hint": "Grant additional boost to player base stats up to a total cap of 30",
+          "EffectLabel": `Runic Empowerment (${item.name})`,
+          "EffectDesc": `Runic Empowerment grants: ${description}`
         }
       },
+      //"Abilities": {
+      //  "Sporewake": {
+      //    "DC": "Sporewake Poison Cloud (DC 14)",
+      //    "Label": "Poisoned (Sporewake)",
+      //    "ChatDesc": "`$",
+      //    { "targetActor.name" },
+      //    "is" "exposed",
+      //    "to" "the",
+      //    "Sporewake" "cloud",
+      //    "takes" "$",
+      //    { "roll.total" },
+      //    "poison" "damage$",
+      //    {
+      //      "save.total" "<",
+      //      14 "?",
+      //      " and is poisoned.": "."
+      //    }
+      //    "`",
+      //  },
+      //  "TracerWhistle": {
+      //    "Label": "Tracer Whistle",
+      //    "Description": "Disoriented by the tracer whistle, you suffer disadvantage on attack rolls for 1 round.",
+      //    "ChatDesc": "`$",
+      //    { "targetActor.name" },
+      //    "is" "disoriented",
+      //    "by" "the",
+      //    "tracer" "whistle",
+      //    "suffers" "disadvantage",
+      //    "on" "attacks",
+      //    "for" 1,
+      //    "round.`"
+      //  },
+      //  "Tier2Cluster1Armor": {
+      //    "Label": "Rune Evasion",
+      //    "Description": "You can move through allies without provoking opportunity attacks once per short rest."
+      //  },
+      //  "Tier3Cluster3Armor": {
+      //    "Label": "Illusory Aura",
+      //    "Description": "Enemies have disadvantage on ranged attacks against you due to illusory aura."
+      //  },
+      //  "DefaultElement": "force",
+      //  "RangeEnhancement" : {
+      //    "ChatMsg" :  `${item.name} unleashes a ${damageType} burst from its enhancement!`
+      //  },
+      //  "MeleeEnhancement" : {
+      //    "ChatMsg" :  `${item.name} unleashes ${roll.total} ${damageType} damage from its Cluster I rune.`
+      //  },
+      //  "AddItem": {
+      //    "ItemDesc":`<p><em>Granted by ${sourceItem.name}</em></p>`
+      //  }
+      //},
       "EnhancementLevels": {
         "0": "None",
         "1": "Runed",
