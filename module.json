@@ -1,7 +1,7 @@
 {
   "id": "upgradable-items",
   "title": "Upgradable Item Slots",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "esmodules": [
     "scripts/upgradable-main.js"    
   ],
@@ -13,7 +13,7 @@
   "authors": [
     {
       "name": "Elemor",
-      "discord": "elemorseru",
+      "patreon": "https://www.patreon.com/Elemor",
       "flags": {}
     }
   ],
