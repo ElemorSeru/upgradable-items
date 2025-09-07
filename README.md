@@ -4,7 +4,11 @@
 A Dnd5e **(Still WIP)** module for the Foundry VTT system that is an attempt at streamlining the item upgrade process for your players and the yourself as the DM/GM. What this offers is a way to take an item, modify "slots" and give items perks and features rather than always having to create and item and manually adjust things which take time. The ideal is inspired by dwarven runes being slotted into items and those runes giving perks, boons, and banes accordingly.
 
 ## History/Reasoning
-My players regularly asked about upgrading their existing items, crafting new items, etc. I spent a fair amount of time coming up with quests and concepts of developing special homebrewed items and most of the time I had to spend time in between sessions working through foundry's different features, integrating with other modules, creating macros, etc. This is a way of allowing the DM to have a framework of upgrades to quickly "slot" in the features as you wish. I've separated them into "Clusters" which indicate the environment the crafting or slotting would occur in to build an effect accordingly. This is thematic and to give the players more options (or limit them) according to the quests/etc which the DM/GM wishes to develop for this effort. The module also includes 2 additional options to add a spell and feature/feat to the actor which weilds it. These work independant of the clusters and access your compendium to generate the lists. Once selected, the spell or feature/feat is added to the actor and shows up in the character sheet. Most (if not nearly all) of these settings check that the item is equipped and/or if attunement is required. Once all these requirements are satisfied, the different settings activate/display. 
+My players regularly asked about upgrading their existing items, crafting new items, etc. I spent a fair amount of time coming up with quests, macros, and other concepts to develop special homebrewed items and most of the time I had to spend time in between sessions working through foundry's different features, integrating with other modules, creating macros, etc. This is a way of allowing the DM to have a simplified and semi-automated framework of upgrades to quickly "slot" in the features as they may wish. I've separated the homebrewed features into "Clusters" which indicate the environment the crafting or slotting would occur in to build an effect accordingly. This is thematic and to give the players more options (or limit them) according to the quests/etc which the DM/GM wishes to develop for this effort. 
+
+The module also includes stat boosts that stack between all items and give an active effect to replicate temporary boons. In addition there are 2 additional options to add a spell and feature/feat to the actor which had the item equipped. These two sections work independant of the clusters and access your available compendium to generate the lists. Once selected, the spell or feature/feat is added to the actor and shows up in the character sheet. 
+
+Most (if not nearly all) of these settings check that the item is equipped and/or if attunement is required. Once all these requirements are satisfied, the different settings activate/display/are gained. 
 
 ## Framework
 Based on the item type (currently only for items that are of item type "equipment" and weapons that have melee(mwak)/ranged(rwak) typing), the item will include 4 new rune/cluster slots within the Details tab. Describing those first: 
@@ -105,9 +109,13 @@ Must be forged in matching terrain. Usable once per long rest.
 | Ranged Weapon | Gain the Sharpshooter feat |
 
 ## Runic Stat Empowerment
+<img width="500" alt="image" src="https://github.com/ElemorSeru/upgradable-items/blob/main/images/statBoons.png" />
+
 Runic Stat Empowerment is meant to give boons to an actor and stack up to a maximum of 30 in said stat. These fields add a value to your base stat up to 10 per item. Multiple items with said bonus stack up to 30 and will downgrade according to the value reaching 30. Example being: If base STR stat is 27 and the user selects +10, the item's bonus STR enhancement will downgrade to +3 automatically.
 
 ## Additional Perks
+<img width="500" alt="image" src="https://github.com/ElemorSeru/upgradable-items/blob/main/images/additionalPerks.png" />
+
 Spell Enhancement and Feat Enhancment both read from the existing compendiums and list all the items you have access to. Once selected, the Spell or Feat/Feature will be added to the actor. Selecting a different Spell/Feat/Feature or defaulting back to the "Select a X" option will remove it. As mentioned before, these also only apply if the item is equipped and/or if attunement is gained for the item (if attunement is required). Unequipping will remove any added perks and equipping should re-add them. 
 
 Additional perks and Clusters are independant of one another and an alternate method of giving your players Spells/Features quickly and dynamically. You may use both in combination as you wish. 
