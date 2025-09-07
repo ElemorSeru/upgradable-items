@@ -1,4 +1,5 @@
-<a href="https://gitlocalize.com/repo/10450?utm_source=badge"> <img src="https://gitlocalize.com/repo/10450/whole_project/badge.svg" /> </a>
+<a href="https://www.patreon.com/c/Elemor/home"> <img src="https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" /></a> &nbsp;&nbsp;
+<a href="https://gitlocalize.com/repo/10450?utm_source=badge"> <img src="https://gitlocalize.com/repo/10450/whole_project/badge.svg" /></a>
 # Upgradable Item Slots
 A Dnd5e **(Still WIP)** module for the Foundry VTT system that is an attempt at streamlining the item upgrade process for your players and the yourself as the DM/GM. What this offers is a way to take an item, modify "slots" and give items perks and features rather than always having to create and item and manually adjust things which take time. The ideal is inspired by dwarven runes being slotted into items and those runes giving perks, boons, and banes accordingly.
 
