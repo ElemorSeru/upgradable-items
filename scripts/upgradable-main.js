@@ -358,7 +358,7 @@ async function applyUpgradableEnhancement(item) {
     const cacheKey = `${actor.id}::${item.id}::enhancement`;
     if (enhancementCallCache.has(cacheKey)) return;
     enhancementCallCache.add(cacheKey);
-    setTimeout(() => enhancementCallCache.delete(cacheKey), 300); // clears after 300ms
+    setTimeout(() => enhancementCallCache.delete(cacheKey), 300);
 
     const flags = item.flags["upgradable-items"] ?? {};
     const { enhanceLvl = "0", cluster1 = "0", cluster2 = "0", cluster3 = "0" } = flags;
@@ -366,27 +366,30 @@ async function applyUpgradableEnhancement(item) {
     const meetsRequirements = meetsUpgradableRequirements(item);
 
     const damageDie = DAMAGE_DIE_MAP[enhanceLvl] ?? "1d4";
-
-    const damageTypeMap = CLUSTER_DAMAGE_TYPES[cluster1] ?? [];
-
-    const damageTypes = damageTypeMap[cluster1] ?? [];
+    const damageTypes = CLUSTER_DAMAGE_TYPES[cluster1] ?? [];
     const damageType = damageTypes.length > 0
         ? damageTypes[Math.floor(Math.random() * damageTypes.length)]
         : null;
 
     const enhancementDie = damageDie && damageType ? damageDie : null;
-    const enhancementTypes = Object.values(damageTypeMap).flat(); // All possible enhancement types
+
+    // Retrieve previously injected type
+    const previousType = item.getFlag("upgradable-items", "injectedDamageType");
 
     const updates = {};
-
     const updateSection = (section) => {
         const bonus = item.system.damage?.[section]?.bonus ?? "";
         const types = Array.from(item.system.damage?.[section]?.types ?? []);
 
-        const cleanedBonus = bonus.replace(/(1d4|1d6|1d8)/g, "").trim();
-        const newBonus = meetsRequirements && enhancementDie ? enhancementDie : cleanedBonus || "";
+        let newBonus = bonus;
+        if (enhanceLvl === "0" || !meetsRequirements || !enhancementDie) {
+            newBonus = bonus.replace(/(1d4|1d6|1d8)/g, "").trim();
+        } else {
+            newBonus = enhancementDie;
+        }
 
-        const filteredTypes = types.filter(t => !enhancementTypes.includes(t));
+        // Remove previously injected type only
+        const filteredTypes = types.filter(t => t !== previousType);
         const newTypes = meetsRequirements && damageType ? [...filteredTypes, damageType] : filteredTypes;
 
         updates[`system.damage.${section}.bonus`] = newBonus;
@@ -419,7 +422,6 @@ async function applyUpgradableEnhancement(item) {
             if (item.system.damage?.versatile) injectSonic("versatile");
         }
 
-
         const changed =
             base.currentBonus !== base.newBonus ||
             JSON.stringify(base.currentTypes) !== JSON.stringify(base.newTypes) ||
@@ -429,6 +431,7 @@ async function applyUpgradableEnhancement(item) {
 
         if (changed) {
             await item.update(updates);
+            await item.setFlag("upgradable-items", "injectedDamageType", damageType); // Track new type
             console.log(`[Upgradable] Enhancement updated for ${item.name}`, updates);
         }
     }
