@@ -112,8 +112,9 @@
                 style="margin: 5px 0px 5px 0px; min-width: 100px">
             <option value="">{{localize "upgradable-items.SOLVARIS.Labels.SpellDefaultLabel"}}</option>
             {{#each spells}}
-            <option value="{{this.pack}}.{{this.id}}"
-                    {{#ifEquals ../selectedSpell (concat this.pack "." this.id)}} selected{{/ifEquals}}>
+            <option value="{{this.fullId}}"
+                    {{#ifEquals ../selectedSpell this.fullId}} selected{{/ifEquals}}>
+
                 {{this.label}}
             </option>
             {{/each}}
@@ -131,8 +132,9 @@
                 style="margin: 5px 0px 5px 0px; min-width: 100px ">
             <option value="">{{localize "upgradable-items.SOLVARIS.Labels.FeatDefaultLabel"}}</option>
             {{#each feats}}
-            <option value="{{this.pack}}.{{this.id}}"
-                    {{#ifEquals ../selectedFeat (concat this.pack "." this.id)}} selected{{/ifEquals}}>
+            <option value="{{this.fullId}}"
+                    {{#ifEquals ../selectedFeat this.fullId}} selected{{/ifEquals}}>
+
                 {{this.label}}
             </option>
             {{/each}}

@@ -118,7 +118,8 @@ async function getCompendiumItems(type) {
                     label: `${pack.metadata.label}: ${entry.name}`,
                     pack: pack.metadata.id,
                     name: entry.name,
-                    identifier: entry.system?.identifier ?? null
+                    identifier: entry.system?.identifier ?? null,
+                    fullId: `${pack.metadata.id}.${entry._id}`
                 });
             }
         }
@@ -1830,6 +1831,7 @@ Hooks.on("renderItemSheet5e", async (app, html, data) => {
             if (newValue && meetsRequirements) {
                 await addItemToActor(actor, newValue, app.object);
             }
+            await app.object.sheet.render(false);
         });
 
         // Handle feat selection
@@ -1857,6 +1859,8 @@ Hooks.on("renderItemSheet5e", async (app, html, data) => {
             if (newValue && meetsRequirements) {
                 await addItemToActor(actor, newValue, app.object);
             }
+            await app.object.sheet.render(false);
+
         });
 
         // Handle enhancement level changes
