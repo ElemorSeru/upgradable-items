@@ -39,7 +39,7 @@ These indicate "Tiers" of upgrades. Consider them like slotting runes or magical
 | Item Type | Description | 
 | --- | --- | 
 | Melee Weapon | Adds Radiant or thunder damage die to damage rolls according to enhancement level |
-| Armor | Attacker takes lightning damage on melee hit equal to the enhancement die value |
+| Armor | Attacker takes lightning damage on successful attack equal to the enhancement die value |
 | Ranged Weapon | On successful Dmg roll, Sonic attack causing target to have disadvantage on attacks for 1 round |
 
 #### 🌿 Cluster II
@@ -66,7 +66,7 @@ Triggered on crits or once per short rest
 | --- | --- | 
 | Melee Weapon | On successful crit Dmg roll, On DC13 Str, push target 10 ft |
 | Armor | Grants passive ability to move through allies without provoking opportunity attacks as long as movement allows and and passing through an ally |
-| Ranged Weapon | On successful Dmg roll, creates 10ft light cover for adjacent allies |
+| Ranged Weapon | On successful crit Dmg roll, creates 10ft half cover for adjacent allies for 2 rounds |
   
 #### 🌿 Cluster II
 | Item Type | Description | 
@@ -79,7 +79,7 @@ Triggered on crits or once per short rest
 | Item Type | Description | 
 | --- | --- | 
 | Melee Weapon | On successfull Dmg roll, when target reaches 0hp, trigger area within 15ft of attacker to cause hostile creatures to lose reaction for 1 round |
-| Armor | First melee attacker DC14 Con save or bonus action |
+| Armor | On successful hit, first melee attacker DC14 Con save or bonus action for 1 round |
 | Ranged Weapon | On successful Dmg roll, target or empty space and 15ft around it reveal illusions/concealment/hiding creatures |
 
 
@@ -90,21 +90,21 @@ Must be forged in matching terrain. Usable once per long rest.
 #### 🌀 Cluster I
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | On successful Crit, Allies within 20ft gain +2 to hit against target for 2 rounds |
-| Armor | On melee Dmg recieved, Allies within 10ft gain +2 to AC for 2 rounds |
-| Ranged Weapon | On successfull Dmg roll, hostile creatures within 15ft of target or space are pulled 5ft closer to center of target |
+| Melee Weapon | On successful Crit Dmg roll, Allies within 20ft gain +2 to hit against target for 2 rounds |
+| Armor | On melee successful attack recieved, Allies within 10ft gain +2 to AC for 2 rounds |
+| Ranged Weapon | On successfull Crit Dmg roll, hostile creatures within 15ft of target or space are pulled 5ft closer to center of target |
 
 #### 🌿 Cluster II
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | On Successful Dmg Roll, Target is restrained on DC15 Dex and takes necrotic damage equal to enhancement die |
-| Armor | Stationary grants +2 AC (light cover) |
+| Melee Weapon | On Successful crit Dmg Roll, Target is restrained on DC15 Dex and takes necrotic damage equal to enhancement die |
+| Armor | TBD |
 | Ranged Weapon | Create 15ft area of poison damage. DC14 Con save to not be poisoned. Cloud moves 5ft/round |
 
 #### 🔥 Cluster III
 | Item Type | Description | 
 | --- | --- | 
-| Melee Weapon | Create phantom illusion that gives advantage to the next attack |
+| Melee Weapon | Create phantom illusion that gives advantage to the next attack when you successfully crit a creature|
 | Armor | At 50% HP or lower, gain resistance to all damage until the end of next round. Hostile creatures within 10ft make DC15 Wis or become frightened |
 | Ranged Weapon | Gain the Sharpshooter feat |
 
