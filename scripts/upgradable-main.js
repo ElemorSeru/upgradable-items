@@ -416,46 +416,98 @@ async function evaluateUpgradableItem(item) {
         }
     }
     // Cluster I Tier 2 Armor: Grant Passive ability to move through allies without provoking opportunity attacks
+    //if (item.type === "equipment" && cluster2 === "1") {
+    //    const meetsRequirements = meetsUpgradableRequirements(item);
+    //    const actor = item.actor;
+
+    //    const effectLabel = "Rune Evasion";
+    //    const existing = actor.effects.find(e =>
+    //        e.label === effectLabel &&
+    //        e.origin === item.uuid
+    //    );
+
+    //    if (meetsRequirements && !existing) {
+    //        const evasionEffect = {
+    //            label: effectLabel,
+    //            icon: "icons/magic/movement/trail-streak-impact-blue.webp",
+    //            origin: item.uuid,
+    //            duration: { seconds: 3600 }, // optional: 1 hour placeholder
+    //            changes: [],
+    //            description: "You can move through allies without provoking opportunity attacks once per short rest.",
+    //            flags: {
+    //                "upgradable-items": { sourceItem: item.id }
+    //            }
+    //        };
+    //        await actor.createEmbeddedDocuments("ActiveEffect", [evasionEffect]);
+    //    } else if (!meetsRequirements && existing) {
+    //        await actor.deleteEmbeddedDocuments("ActiveEffect", [existing.id]);
+    //    }
+    //}
     if (item.type === "equipment" && cluster2 === "1") {
+        const cluster2 = item.getFlag("upgradable-items", "cluster2");
         const meetsRequirements = meetsUpgradableRequirements(item);
         const actor = item.actor;
+        const itemName = item.name;
+        const effectLabel = `Rune Evasion (${itemName})`;
+        const effectKey = "cluster2Tier1Effect";
 
-        const effectLabel = "Rune Evasion";
+        // Remove existing Rune Evasion effect first
         const existing = actor.effects.find(e =>
-            e.label === effectLabel &&
-            e.origin === item.uuid
+            e.label?.startsWith("Rune Evasion") &&
+            e.origin === item.uuid &&
+            e.flags?.["upgradable-items"]?.sourceItem === item.id &&
+            e.flags?.["upgradable-items"]?.effectKey === effectKey
         );
 
-        if (meetsRequirements && !existing) {
+        if (existing) {
+            await actor.deleteEmbeddedDocuments("ActiveEffect", [existing.id]);
+            console.log(`[Upgradable-Items] Removed existing Rune Evasion effect for ${itemName}`);
+        }
+
+        // Reapply if cluster2 is "1" and requirements are met
+        if (cluster2 === "1" && meetsRequirements) {
             const evasionEffect = {
                 label: effectLabel,
                 icon: "icons/magic/movement/trail-streak-impact-blue.webp",
                 origin: item.uuid,
-                duration: { seconds: 3600 }, // optional: 1 hour placeholder
+                duration: { seconds: 3600 }, // Optional: 1 hour placeholder
                 changes: [],
                 description: "You can move through allies without provoking opportunity attacks once per short rest.",
                 flags: {
-                    "upgradable-items": { sourceItem: item.id }
+                    "upgradable-items": {
+                        sourceItem: item.id,
+                        effectKey
+                    }
                 }
             };
+
             await actor.createEmbeddedDocuments("ActiveEffect", [evasionEffect]);
-        } else if (!meetsRequirements && existing) {
-            await actor.deleteEmbeddedDocuments("ActiveEffect", [existing.id]);
+            console.log(`[Upgradable-Items] Applied Rune Evasion effect for ${itemName}`);
         }
     }
 
     // Cluster II Tier 2 : Armor : Grant Mobile feat
-    if (item.type === "equipment") {
+    if (item.type === "equipment" && cluster2 === "2") {
         const meetsRequirements = meetsUpgradableRequirements(item);
         const actor = item.actor;
+        const itemName = item.name;
+        const entryId = "mobile";
 
-        const findGrantedItem = (entryId) => actor.items.find(i =>
+        const findGrantedItem = () => actor.items.find(i =>
             i.flags?.["upgradable-items"]?.sourceId === item.id &&
             i.flags?.["upgradable-items"]?.entryId === entryId
         );
 
-        if (cluster2 === "2" && meetsRequirements && !findGrantedItem("mobile")) {
-            const mobileEntry = await findCompendiumItemByIdentifier("mobile");
+        // Always remove existing Mobile feat first
+        const existing = findGrantedItem();
+        if (existing) {
+            await actor.deleteEmbeddedDocuments("Item", [existing.id]);
+            console.log(`[Upgradable-Items] Removed existing Mobile feat for ${itemName}`);
+        }
+
+        // Only re-add if cluster2 === "2" and requirements are met
+        if (cluster2 === "2" && meetsRequirements) {
+            const mobileEntry = await findCompendiumItemByIdentifier(entryId);
 
             const mobilityEffect = {
                 label: "Mobility Speed Boost",
@@ -474,11 +526,13 @@ async function evaluateUpgradableItem(item) {
                 }
             };
 
+            let mobilityFeat;
+
             if (!mobileEntry) {
                 console.warn("[Upgradable-Items] Mobile feat not found by identifier. Creating fallback.");
 
-                const fallbackMobility = {
-                    name: "Mobility",
+                mobilityFeat = {
+                    name: `Mobile (${itemName})`,
                     type: "feat",
                     img: "icons/skills/movement/feet-winged-boots-blue.webp",
                     system: {
@@ -496,104 +550,59 @@ async function evaluateUpgradableItem(item) {
                         "upgradable-items": {
                             injected: true,
                             sourceId: item.id,
-                            entryId: "mobile"
+                            entryId
                         }
                     },
                     effects: [mobilityEffect]
                 };
-
-                await actor.createEmbeddedDocuments("Item", [fallbackMobility]);
-                return;
+            } else {
+                mobilityFeat = await mobileEntry.document.toObject();
+                mobilityFeat.name = `Mobile (${itemName})`;
+                mobilityFeat.flags = mobilityFeat.flags ?? {};
+                mobilityFeat.flags["upgradable-items"] = {
+                    injected: true,
+                    sourceId: item.id,
+                    entryId
+                };
+                mobilityFeat.effects = mobilityFeat.effects ?? [];
+                mobilityFeat.effects.push(mobilityEffect);
             }
-
-            // Clone compendium item and inject movement effect
-            const mobilityFeat = await mobileEntry.document.toObject();
-            mobilityFeat.flags = mobilityFeat.flags ?? {};
-            mobilityFeat.flags["upgradable-items"] = {
-                injected: true,
-                sourceId: item.id,
-                entryId: "mobile"
-            };
-            mobilityFeat.effects = mobilityFeat.effects ?? [];
-            mobilityFeat.effects.push(mobilityEffect);
 
             await actor.createEmbeddedDocuments("Item", [mobilityFeat]);
-        }
-
-        // Removal logic
-        if (cluster2 !== "2" || !meetsRequirements) {
-            const fallbackItem = actor.items.find(i =>
-                i.flags?.["upgradable-items"]?.sourceId === item.id &&
-                i.flags?.["upgradable-items"]?.entryId === "mobile"
-            );
-
-            if (fallbackItem && actor.items.get(fallbackItem.id)) {
-                await actor.deleteEmbeddedDocuments("Item", [fallbackItem.id]);
-            }
+            console.log(`[Upgradable-Items] Added Mobile feat (${itemName})`);
         }
     }
 
-    // Cluster III Tier 3: Armor : When <= 10% of HP, Gain aura to impose disadvantage when being attacked
-    // TODO: Still using this?
-    //if (item.type === "equipment" && item.getFlag("upgradable-items", "cluster3") === "3") {
-    //    const actor = item.actor;
-    //    const hp = actor.system.attributes.hp;
-    //    const hpPercent = (hp.value / hp.max) * 100;
-    //    const meetsRequirements = meetsUpgradableRequirements(item);
-
-    //    const effectLabel = "Illusory Aura";
-    //    const existing = actor.effects.find(e =>
-    //        e.label === effectLabel &&
-    //        e.origin === item.uuid
-    //    );
-
-    //    if (meetsRequirements && hpPercent <= 10 && !existing) {
-    //        const auraEffect = {
-    //            label: effectLabel,
-    //            icon: "icons/magic/defensive/shield-barrier-deflect-teal.webp",
-    //            origin: item.uuid,
-    //            duration: { rounds: 9999 }, // indefinite until removed
-    //            description: "Enemies have disadvantage on ranged attacks against you due to illusory aura.",
-    //            changes: [{
-    //                key: "flags.upgradable-items.disadvantageRangedAgainstSelf",
-    //                mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-    //                value: "1",
-    //                priority: 20
-    //            }],
-    //            flags: {
-    //                "upgradable-items": {
-    //                    sourceItem: item.id
-    //                }
-    //            }
-    //        };
-    //        await actor.createEmbeddedDocuments("ActiveEffect", [auraEffect]);
-    //    } else if ((hpPercent > 10 || !meetsRequirements) && existing) {
-    //        await actor.deleteEmbeddedDocuments("ActiveEffect", [existing.id]);
-    //    }
-    //}
-
     // Cluster III Tier 3: Ranged Weapon : Gain Sharpshooter Feat allowing ignore of cover to target. 
-    const rangedCluster3 = item.getFlag("upgradable-items", "cluster3");
-    if (item.type === "weapon" && isRangedWeapon(item) && rangedCluster3 === "3") {
+    if (item.type === "weapon" && isRangedWeapon(item) && cluster3 === "3") {
         const meetsRequirements = meetsUpgradableRequirements(item);
         const actor = item.actor;
+        const itemName = item.name;
+        const entryId = "sharpshooter";
 
-        const findGrantedItem = (entryId) => actor.items.find(i =>
+        const findGrantedItem = () => actor.items.find(i =>
             i.flags?.["upgradable-items"]?.sourceId === item.id &&
             i.flags?.["upgradable-items"]?.entryId === entryId
         );
 
-        if (meetsRequirements && !findGrantedItem("sharpshooter")) {
-            const sharpshooterEntry = await findCompendiumItemByIdentifier("sharpshooter");
+        // Always remove existing Sharpshooter feat first
+        const existing = findGrantedItem();
+        if (existing) {
+            await actor.deleteEmbeddedDocuments("Item", [existing.id]);
+            console.log(`[Upgradable-Items] Removed existing Sharpshooter feat for ${itemName}`);
+        }
 
-            if (sharpshooterEntry) {
-                const compRef = `${sharpshooterEntry.pack}.${sharpshooterEntry.id}`;
-                await addItemToActor(actor, compRef, item);
-            } else {
+        // Only re-add if cluster3 === "3" and requirements are met
+        if (cluster3 === "3" && meetsRequirements) {
+            const sharpshooterEntry = await findCompendiumItemByIdentifier(entryId);
+
+            let sharpshooterFeat;
+
+            if (!sharpshooterEntry) {
                 console.warn("[Upgradable-Items] Sharpshooter feat not found by identifier. Creating fallback.");
 
-                const fallbackSharpshooter = {
-                    name: "Sharpshooter",
+                sharpshooterFeat = {
+                    name: `Sharpshooter (${itemName})`,
                     type: "feat",
                     img: "icons/skills/ranged/target-bullseye-archer-orange.webp",
                     system: {
@@ -611,30 +620,23 @@ async function evaluateUpgradableItem(item) {
                         "upgradable-items": {
                             injected: true,
                             sourceId: item.id,
-                            entryId: "sharpshooter"
+                            entryId
                         }
                     }
                 };
-
-                await actor.createEmbeddedDocuments("Item", [fallbackSharpshooter]);
-            }
-        } else if (rangedCluster3 !== "3" || !meetsRequirements) {
-            const sharpshooterEntry = await findCompendiumItemByIdentifier("sharpshooter");
-            const compendiumId = sharpshooterEntry?.id;
-
-            const fallbackItem = actor.items.find(i =>
-                i.flags?.["upgradable-items"]?.sourceId === item.id &&
-                i.flags?.["upgradable-items"]?.entryId === "sharpshooter"
-            );
-
-
-            if (compendiumId) {
-                await removeItemFromActor(actor, compendiumId, item);
+            } else {
+                sharpshooterFeat = await sharpshooterEntry.document.toObject();
+                sharpshooterFeat.name = `Sharpshooter (${itemName})`;
+                sharpshooterFeat.flags = sharpshooterFeat.flags ?? {};
+                sharpshooterFeat.flags["upgradable-items"] = {
+                    injected: true,
+                    sourceId: item.id,
+                    entryId
+                };
             }
 
-            if (fallbackItem) {
-                await actor.deleteEmbeddedDocuments("Item", [fallbackItem.id]);
-            }
+            await actor.createEmbeddedDocuments("Item", [sharpshooterFeat]);
+            console.log(`[Upgradable-Items] Added Sharpshooter feat (${itemName})`);
         }
     }
 }
@@ -1031,28 +1033,27 @@ Hooks.on("preUpdateItem", async (item, changes) => {
     const newCluster3 = changes.flags?.["upgradable-items"]?.cluster3;
     const cluster3Changed = oldCluster3 && oldCluster3 !== newCluster3;
 
-    // Delay deletion to avoid race conditions
-    setTimeout(async () => {
-        const deletedIds = actor.getFlag("upgradable-items", "deletedItemIds") ?? [];
+    const deletedIds = actor.getFlag("upgradable-items", "deletedItemIds") ?? [];
 
-        // Helper to safely delete and track
-        async function safeDelete(itemId, label) {
-            if (!deletedIds.includes(itemId) && actor.items.has(itemId)) {
-                try {
-                    await actor.deleteEmbeddedDocuments("Item", [itemId]);
-                    deletedIds.push(itemId);
-                    await actor.setFlag("upgradable-items", "deletedItemIds", deletedIds);
-                    console.log(`[Upgradable-Items] Deleted ${label}: ${itemId}`);
-                } catch (err) {
-                    console.warn(`[Upgradable-Items] Failed to delete ${label}: ${itemId}`, err);
-                }
-            } else {
-                console.log(`[Upgradable-Items] Skipped ${label}: ${itemId} already deleted or missing`);
+    // Helper to safely delete and track
+    async function safeDelete(itemId, label) {
+        if (!deletedIds.includes(itemId) && actor.items.has(itemId)) {
+            try {
+                await actor.deleteEmbeddedDocuments("Item", [itemId]);
+                deletedIds.push(itemId);
+                await actor.setFlag("upgradable-items", "deletedItemIds", deletedIds);
+                console.log(`[Upgradable-Items] Deleted ${label}: ${itemId}`);
+            } catch (err) {
+                console.warn(`[Upgradable-Items] Failed to delete ${label}: ${itemId}`, err);
             }
+        } else {
+            console.log(`[Upgradable-Items] Skipped ${label}: ${itemId} already deleted or missing`);
         }
+    }
 
-        // Remove Mobile if cluster2 changed
-        if (cluster2Changed) {
+    // Remove Mobile if cluster2 changed
+    if (cluster2Changed && item.type === "equipment") {
+        if (newCluster2 !== "2") {
             const mobileEntry = await findCompendiumItemByIdentifier("mobile");
 
             if (mobileEntry) {
@@ -1068,8 +1069,24 @@ Hooks.on("preUpdateItem", async (item, changes) => {
             }
         }
 
-        // Remove Sharpshooter if cluster3 changed
-        if (cluster3Changed) {
+        if (newCluster2 !== "1") {
+            // Remove only the Rune Evasion effect tied to this item
+            const runeEvasionEffect = actor.effects.find(e =>
+                e.origin === item.uuid &&
+                e.flags?.["upgradable-items"]?.sourceItem === item.id &&
+                e.flags?.["upgradable-items"]?.effectKey === "cluster2Tier1Effect"
+            );
+
+            if (runeEvasionEffect) {
+                await actor.deleteEmbeddedDocuments("ActiveEffect", [runeEvasionEffect.id]);
+                console.log(`[Upgradable-Items] Removed Rune Evasion effect due to cluster change`);
+            }
+        }
+    }
+
+    // Remove Sharpshooter if cluster3 changed
+    if (cluster3Changed && isRangedWeapon(item)) {
+        if (newCluster3 !== "3") {
             const sharpshooterEntry = await findCompendiumItemByIdentifier("sharpshooter");
 
             if (sharpshooterEntry) {
@@ -1084,49 +1101,36 @@ Hooks.on("preUpdateItem", async (item, changes) => {
                 }
             }
         }
+    }
 
-        // Remove Active Effects tied to this item if cluster2 or cluster3 changed
-        if (cluster2Changed || cluster3Changed) {
-            const effectsToRemove = actor.effects.filter(e =>
-                e.origin === item.uuid &&
-                e.flags?.["upgradable-items"]?.sourceItem === item.id
-            );
+    // Handle unequip/unattune cleanup
+    if (unequipped || unattuned) {
+        if (itemFlags.selectedSpell) await safeDelete(itemFlags.selectedSpell, "Selected Spell");
+        if (itemFlags.selectedFeat) await safeDelete(itemFlags.selectedFeat, "Selected Feat");
 
-            for (const effect of effectsToRemove) {
-                await actor.deleteEmbeddedDocuments("ActiveEffect", [effect.id]);
-                console.log(`[Upgradable-Items] Removed effect ${effect.label} due to cluster change`);
-            }
+        // Check for effects to remove
+        const runeEvasionEffect = actor.effects.find(e =>
+            e.origin === item.uuid &&
+            e.flags?.["upgradable-items"]?.sourceItem === item.id &&
+            e.flags?.["upgradable-items"]?.effectKey === "cluster2Tier1Effect"
+        );
+
+        if (runeEvasionEffect) {
+            await actor.deleteEmbeddedDocuments("ActiveEffect", [runeEvasionEffect.id]);
+            console.log(`[Upgradable-Items] Removed Rune Evasion effect due to unequip/unattune`);
         }
+    }
 
-        // Handle unequip/unattune cleanup
-        if (unequipped || unattuned) {
-            if (itemFlags.selectedSpell) await safeDelete(itemFlags.selectedSpell, "Selected Spell");
-            if (itemFlags.selectedFeat) await safeDelete(itemFlags.selectedFeat, "Selected Feat");
+    //const reequipped = !wasEquipped && willBeEquipped === true;
+    //const reattuned = attunementRequired && !wasAttuned && willBeAttuned === true;
 
-            // Check for effects to remove
-            const effectsToRemove = actor.effects.filter(e =>
-                e.origin === item.uuid &&
-                e.flags?.["upgradable-items"]?.sourceItem === item.id
-            );
-
-            for (const effect of effectsToRemove) {
-                await actor.deleteEmbeddedDocuments("ActiveEffect", [effect.id]);
-                console.log(`[Upgradable-Items] Removed effect ${effect.label} due to unequip/unattune`);
-            }
-
-        }
-
-        const reequipped = !wasEquipped && willBeEquipped === true;
-        const reattuned = attunementRequired && !wasAttuned && willBeAttuned === true;
-
-        if (reequipped || reattuned || cluster2Changed || cluster3Changed) {
-            await evaluateUpgradableItem(item);
-            console.log(`[Upgradable-Items] Re-evaluated item ${item.name} after state change`);
-        }
+    //if (reequipped || reattuned || cluster2Changed || cluster3Changed) {
+    //    await evaluateUpgradableItem(item);
+    //    console.log(`[Upgradable-Items] Re-evaluated item ${item.name} after state change`);
+    //}
 
 
-        console.log(`[Upgradable-Items] preUpdateItem triggered for ${item.name}`, changes);
-    }, 10);
+    console.log(`[Upgradable-Items] preUpdateItem triggered for ${item.name}`, changes);
 });
 
 // Hooks - Tier 1 & Tier 3 Armor Logic
