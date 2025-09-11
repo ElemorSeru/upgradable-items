@@ -1,7 +1,7 @@
 {
   "id": "upgradable-items",
   "title": "Upgradable Item Slots",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "esmodules": [
     "scripts/upgradable-main.js"    
   ],
