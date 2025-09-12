@@ -98,7 +98,7 @@ Must be forged in matching terrain. Usable once per long rest.
 | Item Type | Description | 
 | --- | --- | 
 | Melee Weapon | On Successful crit Dmg Roll, Target is restrained on DC15 Dex and takes necrotic damage equal to enhancement die |
-| Armor | TBD |
+| Armor | While in combat, Once per short rest, allies attacked within movement range allow the option to move to an adjacent square and trigger disadvantage on the attacker |
 | Ranged Weapon | Create 15ft area of poison damage. DC14 Con save to not be poisoned. Cloud moves 5ft/round |
 
 #### 🔥 Cluster III

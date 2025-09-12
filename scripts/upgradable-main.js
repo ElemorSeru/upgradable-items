@@ -33,6 +33,10 @@ function isRangedWeapon(item) {
 function isMeleeWeapon(item) {
     return item?.system?.actionType === "mwak";
 }
+
+function isNaturalWeapon(item) {
+    return item.type === "weapon" && item.system.weaponType === "natural";
+}
 function getDieFormula(level) {
     return { "1": "1d4", "2": "1d6", "3": "1d8" }[level] ?? "1d4";
 }
@@ -185,9 +189,143 @@ async function getOrCreateFeat(featName, fallbackData) {
     };
 }
 
-function isNaturalWeapon(item) {
-    return item.type === "weapon" && item.system.weaponType === "natural";
+
+// Utility : Pathfinding Functions
+function getAdjacentTiles(token) {
+    const gridSize = canvas.grid.size;
+    const centerX = Math.round(token.center.x / gridSize) * gridSize;
+    const centerY = Math.round(token.center.y / gridSize) * gridSize;
+
+    const offsets = [
+        [-gridSize, 0], [gridSize, 0], [0, -gridSize], [0, gridSize], // cardinal
+        [-gridSize, -gridSize], [gridSize, -gridSize], [-gridSize, gridSize], [gridSize, gridSize] // diagonal
+    ];
+
+    return offsets.map(([dx, dy]) => {
+        return {
+            x: centerX + dx,
+            y: centerY + dy
+        };
+    });
 }
+
+
+function isTileValid(pos, movingToken, maxDistance, excludeTokens = []) {
+    if (!pos || typeof pos.x !== "number" || typeof pos.y !== "number") return false;
+
+    const tokenWidth = movingToken.document.width * canvas.grid.size;
+    const tokenHeight = movingToken.document.height * canvas.grid.size;
+    const proposedBounds = new PIXI.Rectangle(pos.x, pos.y, tokenWidth, tokenHeight);
+
+    // Reject if overlapping with excluded tokens
+    for (const t of excludeTokens) {
+        const bounds = t.getBounds();
+        if (proposedBounds.x < bounds.x + bounds.width &&
+            proposedBounds.x + proposedBounds.width > bounds.x &&
+            proposedBounds.y < bounds.y + bounds.height &&
+            proposedBounds.y + proposedBounds.height > bounds.y) {
+            return false;
+        }
+    }
+
+    // Reject if overlapping with any other token
+    const occupied = canvas.tokens.placeables.some(t => {
+        if (t === movingToken || excludeTokens.includes(t)) return false;
+        const bounds = t.getBounds();
+        return proposedBounds.x < bounds.x + bounds.width &&
+            proposedBounds.x + proposedBounds.width > bounds.x &&
+            proposedBounds.y < bounds.y + bounds.height &&
+            proposedBounds.y + proposedBounds.height > bounds.y;
+    });
+    if (occupied) return false;
+
+    const distance = canvas.grid.measureDistance(movingToken.center, pos);
+    if (distance > maxDistance + canvas.grid.size / 2) return false;
+
+    try {
+        return !movingToken.checkCollision(pos);
+    } catch (err) {
+        console.warn("Collision check failed:", err);
+        return true;
+    }
+}
+
+function findBestRushPosition(defenderToken, targetTokens) {
+    const [allyToken, attackerToken] = targetTokens;
+    const maxDistance = defenderToken.actor.system.attributes.movement.walk;
+    const candidateTiles = [];
+
+    for (const target of targetTokens) {
+        const adj = getAdjacentTiles(target);
+        candidateTiles.push(...adj);
+    }
+
+    candidateTiles.forEach(pos => {
+        if (!pos || typeof pos.x !== "number" || typeof pos.y !== "number" || !isFinite(pos.x) || !isFinite(pos.y)) {
+            console.warn("[Guardian's Rush] Skipping invalid tile:", pos);
+            return;
+        }
+
+        const isValid = isTileValid(pos, allyToken, maxDistance, targetTokens);
+        canvas.scene.createEmbeddedDocuments("Drawing", [{
+            type: "rectangle",
+            x: pos.x,
+            y: pos.y,
+            width: canvas.grid.size,
+            height: canvas.grid.size,
+            strokeColor: isValid ? "#00ff00" : "#ff0000",
+            strokeWidth: 3,
+            fillAlpha: 0.2,
+            flags: { "upgradable-items": { debugTile: true } }
+        }]);
+    });
+
+    const validTiles = candidateTiles.filter(pos => {
+        const adjacentToAlly = canvas.grid.measureDistance(pos, allyToken.center) <= canvas.grid.size + 1;
+        const adjacentToAttacker = canvas.grid.measureDistance(pos, attackerToken.center) <= canvas.grid.size + 1;
+
+        return adjacentToAlly &&
+            adjacentToAttacker &&
+            isTileValid(pos, defenderToken, maxDistance, [allyToken, attackerToken]);
+    });
+
+    if (validTiles.length === 0) {
+        console.warn("[Guardian's Rush] No tile adjacent to both targets found. Trying fallback...");
+
+        validTiles.push(...candidateTiles.filter(pos =>
+            isTileValid(pos, defenderToken, maxDistance, [allyToken, attackerToken]) &&
+            (
+                canvas.grid.measureDistance(pos, allyToken.center) <= canvas.grid.size + 1 ||
+                canvas.grid.measureDistance(pos, attackerToken.center) <= canvas.grid.size + 1
+            )
+        ));
+    }
+
+    // Sort by proximity to both targets
+    validTiles.sort((a, b) => {
+        const overlaps = (pos, token) => {
+            const tokenBounds = token.getBounds();
+            return pos.x >= tokenBounds.x && pos.x < tokenBounds.x + tokenBounds.width &&
+                pos.y >= tokenBounds.y && pos.y < tokenBounds.y + tokenBounds.height;
+        };
+
+        const aOverlaps = overlaps(a, allyToken) || overlaps(a, attackerToken);
+        const bOverlaps = overlaps(b, allyToken) || overlaps(b, attackerToken);
+
+        if (aOverlaps && !bOverlaps) return 1;
+        if (!aOverlaps && bOverlaps) return -1;
+
+        const distA = canvas.grid.measureDistance(a, allyToken.center) + canvas.grid.measureDistance(a, attackerToken.center);
+        const distB = canvas.grid.measureDistance(b, allyToken.center) + canvas.grid.measureDistance(b, attackerToken.center);
+        return distA - distB;
+    });
+
+    //console.log("Candidate Tiles:", candidateTiles);
+    //console.log("Valid Tiles:", validTiles);
+
+    return validTiles[0]; // Best tile
+}
+
 
 // Utility : Rune Armor Effects logic
 async function processRuneArmorEffects(attacker, target, item, context = {}) {
@@ -212,11 +350,16 @@ async function processRuneArmorEffects(attacker, target, item, context = {}) {
 
     // If the attack wasn't successful, narrate what would have happened
     if (!isSuccess && hasActiveCluster) {
-        //ChatMessage.create({
-        //    speaker: { actor: target ?? attacker },
-        //    content: `${attacker.name} missed ${targetName}. Rune armor effects were not triggered.`
-        //});
+        ChatMessage.create({
+            speaker: { actor: target ?? attacker },
+            content: `${attacker.name} missed ${targetName}. Rune armor effects were not triggered.`
+        });
         return;
+    }
+    else {
+        if (!isSuccess) {
+            return;
+        }
     }
 
     // Cluster III Tier 2: Bonus Action Block
@@ -989,22 +1132,151 @@ Hooks.on("dnd5e.rollAttack", async (itemdata, rolldata) => {
     const isCrit = rolldata?.isCritical ?? false;
     const isSuccess = rolldata?.isSuccess ?? false;
 
-    //if (!isSuccess) {
-    //    console.log("[Upgradable-Items] Attack did not succeed");
-    //    return;
-    //}
+    if (!isSuccess) {
+        console.log("[Upgradable-Items] Attack did not succeed");
+        return;
+    }
 
     for (const targetToken of userTargets) {
         const targetActor = targetToken.actor;
         if (!targetActor) continue;
 
-        console.log(`[Upgradable-Items] Confirmed hit: ${attacker.name} - ${targetActor.name} with ${item.name}`);
+        if (isSuccess) {
+            console.log(`[Upgradable-Items] Confirmed hit: ${attacker.name} - ${targetActor.name} with ${item.name}`);
+        }
+        else {
+            console.log(`[Upgradable-Items] Failed to hit: ${attacker.name} - ${targetActor.name} with ${item.name}`);
+        }
         await processRuneArmorEffects(attacker, targetActor, item, {
             isCritical: isCrit,
             isSuccess: isSuccess,
             rolldata: rolldata,
             itemdata: itemdata
         });
+    }
+
+    // Cluster II Tier 3 : Armor : Guardian's Rush — Reaction
+    if (game.combat) {
+        const isSuccess = rolldata?.isSuccess ?? false;
+        if (!isSuccess) return;
+
+        const attacker = itemdata.actor;
+        const targets = Array.from(game.user?.targets ?? []);
+        if (targets.length === 0) return;
+
+        const allyToken = targets[0];
+        const allyActor = allyToken.actor;
+        if (!allyActor) return;
+        // Find eligible defenders
+        const defenders = [];
+
+        for (const combatant of game.combat.combatants) {
+            const actor = combatant.actor;
+            if (!actor || actor.id === allyActor.id) continue;
+            const armor = getEquippedRuneArmor(actor);
+            if (!armor) continue;
+
+            const cluster3 = armor.getFlag("upgradable-items", "cluster3");
+            const used = actor.getFlag("upgradable-items", "guardianRushUsed");
+            const meets = meetsUpgradableRequirements(armor);
+
+            if (cluster3 === "2" && !used && meets) {
+                const token = actor.getActiveTokens()[0];
+                if (token) defenders.push(token);
+            }
+        }
+
+        if (defenders.length === 0) {
+            console.log("[Upgradable-Items] Guardian's Rush - No eligible defenders found.");
+        }
+
+
+        for (const defenderToken of defenders) {
+            const defenderActor = defenderToken.actor;
+            const distance = canvas.grid.measureDistance(defenderToken, allyToken);
+            if (distance > defenderActor.system.attributes.movement.walk) continue;
+
+            const confirmed = await new Promise(resolve => {
+                new Dialog({
+                    title: "Guardian's Rush",
+                    content: `<p>${defenderActor.name}, would you like to use Guardian's Rush to protect ${allyActor.name}?</p>`,
+                    buttons: {
+                        yes: {
+                            label: "Yes",
+                            callback: () => resolve(true)
+                        },
+                        no: {
+                            label: "No",
+                            callback: () => resolve(false)
+                        }
+                    },
+                    default: "no"
+                }).render(true);
+            });
+
+            if (!confirmed) continue;
+
+            // Move defender adjacent to ally — with input guards
+            const center = allyToken?.center;
+            if (!center || typeof center.x !== "number" || typeof center.y !== "number") {
+                console.warn(`[Upgradable-Items] - Guardian's Rush Invalid ally token center:`, center);
+                continue; // Skip this defender if center is invalid
+            }
+            const attackerToken = attacker.getActiveTokens()[0];
+            if (!attackerToken) return;
+
+
+            const bestPosition = findBestRushPosition(defenderToken, [allyToken, attackerToken]);
+
+            if (!bestPosition || typeof bestPosition.x !== "number" || typeof bestPosition.y !== "number") {
+                console.warn("[Guardian's Rush] No valid position returned from pathfinding.");
+                ui.notifications.warn(`${defenderActor.name} could not find a reachable adjacent space.`);
+                continue;
+            }
+
+            console.log(`[Guardian's Rush] Moving ${defenderToken.name} to (${Math.round(bestPosition.x)}, ${Math.round(bestPosition.y)})`);
+
+            await defenderToken.document.update({
+                x: Math.round(bestPosition.x),
+                y: Math.round(bestPosition.y)
+            });
+            //await defenderActor.setFlag("upgradable-items", "guardianRushUsed", true);
+
+            // Remove any existing Guardian's Rush Disadvantage effect
+            const existingEffects = attacker.effects.filter(e =>
+                e.flags?.["upgradable-items"]?.effectKey === "guardianRushDisadvantage"
+            );
+
+            for (const effect of existingEffects) {
+                await attacker.deleteEmbeddedDocuments("ActiveEffect", [effect.id]);
+            }
+            const effect = {
+                label: "Guardian's Rush Disadvantage",
+                icon: "icons/magic/air/air-pressure-shield-blue.webp",
+                origin: defenderToken.actor.uuid,
+                duration: { rounds: 1, startRound: game.combat.round },
+                changes: [{
+                    key: "system.bonuses.attack.disadvantage",
+                    mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+                    value: "true",
+                    priority: 20
+                }],
+                description: "This creature suffers disadvantage on all attack rolls until the end of the round, having been disrupted by a guardian's sudden interposition.",
+                flags: {
+                    "upgradable-items": {
+                        sourceItem: getEquippedRuneArmor(defenderActor)?.id,
+                        effectKey: "guardianRushDisadvantage"
+                    }
+                }
+            };
+
+            await attacker.createEmbeddedDocuments("ActiveEffect", [effect]);
+
+            ChatMessage.create({
+                speaker: { actor: defenderActor },
+                content: `${defenderActor.name} blurs across the battlefield, interposing themselves to protect ${allyActor.name}. <strong>${attacker.name}</strong> suffers <em>disadvantage on all attack rolls</em> until the end of the round.`
+            });
+        }
     }
 });
 
@@ -1042,7 +1314,7 @@ Hooks.on("preUpdateItem", async (item, changes) => {
                 await actor.deleteEmbeddedDocuments("Item", [itemId]);
                 deletedIds.push(itemId);
                 await actor.setFlag("upgradable-items", "deletedItemIds", deletedIds);
-                console.log(`[Upgradable-Items] Deleted ${label}: ${itemId}`);
+                console.log(` Deleted ${label}: ${itemId}`);
             } catch (err) {
                 console.warn(`[Upgradable-Items] Failed to delete ${label}: ${itemId}`, err);
             }
@@ -2132,7 +2404,7 @@ Hooks.on("updateToken", async (tokenDoc, changes, options, userId) => {
 Hooks.on("dnd5e.restCompleted", async (actor, restType) => {
     await actor.unsetFlag("upgradable-items", "cluster3Tier3Used");
     await actor.unsetFlag("upgradable-items", "cluster3Tier2Used");
-
+    await actor.unsetFlag("upgradable-items", "guardianRushUsed");
 });
 Hooks.on("deleteCombat", async combat => {
     for (const combatant of combat.combatants) {
