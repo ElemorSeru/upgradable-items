@@ -1240,7 +1240,7 @@ Hooks.on("dnd5e.rollAttack", async (itemdata, rolldata) => {
                 x: Math.round(bestPosition.x),
                 y: Math.round(bestPosition.y)
             });
-            //await defenderActor.setFlag("upgradable-items", "guardianRushUsed", true);
+            await defenderActor.setFlag("upgradable-items", "guardianRushUsed", true);
 
             // Remove any existing Guardian's Rush Disadvantage effect
             const existingEffects = attacker.effects.filter(e =>
