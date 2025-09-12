@@ -3,19 +3,19 @@
   "WorkspaceRootPath": "I:\\Dev\\upgradable-items\\upgradable-items\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Arazzius\\AppData\\Local\\FoundryVTT\\Data\\modules\\upgradable-items\\scripts\\upgradable-main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\Dev\\upgradable-items\\upgradable-items\\scripts\\upgradable-main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scripts\\upgradable-main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\Dev\\upgradable-items\\upgradable-items\\module.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:module.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\Dev\\upgradable-items\\upgradable-items\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\Dev\\upgradable-items\\upgradable-items\\scripts\\upgradable-main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scripts\\upgradable-main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Arazzius\\AppData\\Local\\FoundryVTT\\Data\\modules\\upgradable-items\\scripts\\upgradable-main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Arazzius\\AppData\\Local\\FoundryVTT\\Data\\modules\\upgradable-items\\templates\\upitab-template.hbs||{40D31677-CBC0-4297-A9EF-89D907823A98}"
@@ -59,15 +59,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "upgradable-main.js",
               "DocumentMoniker": "C:\\Users\\Arazzius\\AppData\\Local\\FoundryVTT\\Data\\modules\\upgradable-items\\scripts\\upgradable-main.js",
               "ToolTip": "C:\\Users\\Arazzius\\AppData\\Local\\FoundryVTT\\Data\\modules\\upgradable-items\\scripts\\upgradable-main.js",
-              "ViewState": "AgIAAJIJAAAAAAAAAAAYwKIJAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAHgKAAAAAAAAAAAYwLIKAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-09-06T11:10:17.953Z",
               "IsPinned": true,
@@ -82,8 +82,7 @@
               "ViewState": "AgIAAFsAAAAAAAAAAAAiwJAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-09-06T11:10:07.326Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -98,29 +97,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "README.md",
               "DocumentMoniker": "I:\\Dev\\upgradable-items\\upgradable-items\\README.md",
               "RelativeDocumentMoniker": "README.md",
               "ToolTip": "I:\\Dev\\upgradable-items\\upgradable-items\\README.md",
               "RelativeToolTip": "README.md",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAcwFkAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAcwGUAAABuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
               "WhenOpened": "2025-09-06T14:26:27.856Z",
               "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "upgradable-main.js",
-              "DocumentMoniker": "I:\\Dev\\upgradable-items\\upgradable-items\\scripts\\upgradable-main.js",
-              "RelativeDocumentMoniker": "scripts\\upgradable-main.js",
-              "ToolTip": "I:\\Dev\\upgradable-items\\upgradable-items\\scripts\\upgradable-main.js",
-              "RelativeToolTip": "scripts\\upgradable-main.js",
-              "ViewState": "AgIAACkJAAAAAAAAAAAYwKIJAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-09-11T10:12:36.868Z",
               "EditorCaption": ""
             },
             {
@@ -130,12 +116,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "upgradable-main.js",
+              "DocumentMoniker": "I:\\Dev\\upgradable-items\\upgradable-items\\scripts\\upgradable-main.js",
+              "RelativeDocumentMoniker": "scripts\\upgradable-main.js",
+              "ToolTip": "I:\\Dev\\upgradable-items\\upgradable-items\\scripts\\upgradable-main.js",
+              "RelativeToolTip": "scripts\\upgradable-main.js",
+              "ViewState": "AgIAAHgKAAAAAAAAAAAYwLIKAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-09-11T10:12:36.868Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "module.json",
               "DocumentMoniker": "I:\\Dev\\upgradable-items\\upgradable-items\\module.json",
               "RelativeDocumentMoniker": "module.json",
               "ToolTip": "I:\\Dev\\upgradable-items\\upgradable-items\\module.json",
               "RelativeToolTip": "module.json",
-              "ViewState": "AgIAADAAAAAAAAAAAAAAAFIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-09-07T07:13:43.365Z",
               "EditorCaption": ""
@@ -150,8 +149,7 @@
               "RelativeToolTip": "templates\\upitab-template.hbs",
               "ViewState": "AgIAAFsAAAAAAAAAAAAiwJAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-09-07T06:08:08.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-07T06:08:08.173Z"
             },
             {
               "$type": "Document",
