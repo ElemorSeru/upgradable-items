@@ -1,4 +1,5 @@
 <a href="https://www.patreon.com/c/Elemor/home"> <img src="https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" /></a> &nbsp;&nbsp;
+[![Foundry Version](https://img.shields.io/badge/Foundry-v12-informational?style=for-the-badge)](https://foundryvtt.com)
 <img alt="GitHub Downloads (all assets, latest release)" src="https://img.shields.io/github/downloads/ElemorSeru/upgradable-items/latest/total">
 &nbsp;&nbsp;
 <!--<a href="https://gitlocalize.com/repo/10450?utm_source=badge"> <img src="https://gitlocalize.com/repo/10450/whole_project/badge.svg" /></a> -->
