@@ -4,8 +4,9 @@
 &nbsp;&nbsp;
 <!--<a href="https://gitlocalize.com/repo/10450?utm_source=badge"> <img src="https://gitlocalize.com/repo/10450/whole_project/badge.svg" /></a> -->
 # **Important Note:** 
-This module is likely sunset in favor of [GM Tools: Upgradable Runic Items](https://github.com/ElemorSeru/gm-runic-items). It is a better balanced and is better to manage for me. If public outcry is large enough, I may update this and cut it down to ability score and feat/spell management, but ideally, the new module should handle things better and be more world friendly. 
+This module is likely sunset in favor of [GM Tools: Upgradable Runic Items](https://github.com/ElemorSeru/gm-runic-items). It is a better balanced module and is better to manage for me long term. If public outcry is large/loud enough, I may update this and cut it down to ability score and feat/spell management, but ideally, the new module should handle things better and be more world friendly. I suggest trying it out. 
 
+---
 ---
 
 # Upgradable Item Slots
