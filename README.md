@@ -3,6 +3,11 @@
 <img alt="GitHub Downloads (all assets, latest release)" src="https://img.shields.io/github/downloads/ElemorSeru/upgradable-items/latest/total">
 &nbsp;&nbsp;
 <!--<a href="https://gitlocalize.com/repo/10450?utm_source=badge"> <img src="https://gitlocalize.com/repo/10450/whole_project/badge.svg" /></a> -->
+# **Important Note:** 
+This module is likely sunset in favor of [GM Tools: Upgradable Runic Items](https://github.com/ElemorSeru/gm-runic-items). It is a better balanced and is better to manage for me. If public outcry is large enough, I may update this and cut it down to ability score and feat/spell management, but ideally, the new module should handle things better and be more world friendly. 
+
+---
+
 # Upgradable Item Slots
 A Dnd5e **(Still WIP)** module for the Foundry VTT system that is an attempt at streamlining the item upgrade process for your players and yourself as the DM/GM. What this offers is a way to take an item, modify "slots" and give items perks and features rather than always having to create and item and manually adjust things which take time. The idea is inspired by dwarven runes being slotted into items and those runes giving perks, boons, and banes accordingly.
 
